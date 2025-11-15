@@ -1,0 +1,77 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "people": "People",
+    "contact": "Contact Us"
+  },
+  "hero": {
+    "title": "Building Sudan's Future",
+    "subtitle": "Your trusted partner in real estate and project management",
+    "cta": "Get Started"
+  },
+  "whoWeAre": {
+    "title": "Who We Are",
+    "description": "CUBES is a leading construction and real estate company dedicated to building excellence and sustainable development in Sudan."
+  },
+  "objectives": {
+    "title": "Our Objectives",
+    "items": [
+      "Deliver high-quality projects",
+      "Ensure customer satisfaction",
+      "Promote sustainable development",
+      "Foster innovation",
+      "Build lasting partnerships",
+      "Create employment",
+      "Contribute to economy"
+    ]
+  },
+  "services": {
+    "title": "Our Services",
+    "projectManagement": "Project Management",
+    "realEstate": "Real Estate"
+  },
+  "footer": {
+    "company": "CUBES",
+    "description": "Building excellence in construction and real estate",
+    "quickLinks": "Quick Links",
+    "contact": "Contact",
+    "email": "Email",
+    "phone": "Phone",
+    "message": "Message",
+    "sendMessage": "Send Message",
+    "copyright": "© 2025 CUBES. All rights reserved."
+  },
+  "about": {
+    "title": "About CUBES",
+    "vision": "Our Vision",
+    "visionText": "To be the leading construction and real estate company in Sudan, recognized for excellence, innovation, and sustainable development.",
+    "mission": "Our Mission",
+    "missionText": "To deliver exceptional construction and real estate solutions that transform communities and create lasting value.",
+    "whyChooseUs": "Why Choose Us?",
+    "whyItems": [
+      "Experienced team with 20+ years in the industry",
+      "Proven track record of successful projects",
+      "Commitment to quality and excellence",
+      "Customer-centric approach",
+      "Innovative solutions",
+      "Sustainable practices"
+    ]
+  },
+  "contact": {
+    "title": "Get In Touch",
+    "subtitle": "Have any questions? We'd love to hear from you.",
+    "name": "Your Name",
+    "email": "Your Email",
+    "message": "Your Message",
+    "send": "Send Message"
+  },
+  "people": {
+    "title": "Our Team",
+    "departments": "Departments",
+    "management": "Management",
+    "engineering": "Engineering",
+    "sales": "Sales",
+    "support": "Support"
+  }
+}

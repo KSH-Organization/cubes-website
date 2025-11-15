@@ -26,40 +26,39 @@ export default function PeoplePage() {
   ];
 
   return (
-    <main className="people-page">
+    <main>
       {/* ===== HERO ===== */}
-      <section className="people-hero">
+      <section className="relative h-96 md:h-screen overflow-hidden">
         <Image
           src="/images/people-hero.jpg"
           alt="Construction Crane"
           width={1920}
           height={1080}
-          className="hero-bg"
+          className="w-full h-full object-cover brightness-75"
         />
-        <div className="hero-overlay">
-          <h1>Departments That Deliver, People Who Inspire</h1>
+        <div className="absolute inset-0 flex items-center justify-center">
+          <h1 className="text-white text-3xl md:text-5xl font-bold text-center max-w-2xl px-4">Departments That Deliver, People Who Inspire</h1>
         </div>
       </section>
 
       {/* ===== DEPARTMENTS ===== */}
-      <section className="departments-section py-12">
-        <div className="container text-center">
-          <h2 className="h2 mb-10">Our Departments</h2>
-          <div className="departments-grid">
+      <section className="py-12 md:py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 text-center mb-10">Our Departments</h2>
+          <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
             {departments.map((dept, i) => (
-              <div key={i} className="dept-card">
-                <h3>{dept.title}</h3>
-                <div className="dept-img">
-                  <Image src={dept.img} alt={dept.title} width={320} height={200} />
+              <div key={i} className="bg-slate-900 text-white rounded-3xl p-6 shadow-lg hover:shadow-xl hover:bg-slate-800 transition-all hover:-translate-y-1">
+                <h3 className="font-bold text-lg mb-4">{dept.title}</h3>
+                <div className="mb-4">
+                  <Image src={dept.img} alt={dept.title} width={320} height={200} className="w-full h-40 object-cover rounded-lg" />
                 </div>
-                <p>{dept.desc}</p>
+                <p className="text-gray-300 text-sm leading-relaxed">{dept.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
-      <Footer />
-      
+      <Footer />      
     </main>
   );
 }

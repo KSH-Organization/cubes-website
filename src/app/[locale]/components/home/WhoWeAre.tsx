@@ -2,13 +2,13 @@ import Image from "next/image";
 
 export default function WhoWeAre() {
   return (
-    <section className="who">
-      <div className="container who-grid">
-        <div className="who-text">
-          <h2>Who We Are</h2>
-          <p>
+    <section className="bg-white py-16 md:py-28">
+      <div className="container mx-auto px-4 grid md:grid-cols-2 gap-10 items-center">
+        <div>
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Who We Are</h2>
+          <p className="text-gray-700 leading-relaxed text-lg">
             KSHC Construction & Real Estate is a leading construction and real
-            estate company in Sudan, committed to shaping the country’s urban
+            estate company in Sudan, committed to shaping the country&apos;s urban
             landscape through high-quality projects. We specialize in
             residential, commercial, and mixed-use developments, delivering
             solutions that enhance infrastructure, elevate living standards, and
@@ -16,17 +16,18 @@ export default function WhoWeAre() {
             (PMO) overseeing quality, timelines, and budgets, we ensure every
             project is executed with precision. Through strategic investments
             and innovative construction practices, CUBES drives sustainable
-            growth, contributing to Sudan’s development and positioning itself
+            growth, contributing to Sudan&apos;s development and positioning itself
             as a key player in the real estate and construction sectors.
           </p>
         </div>
 
-        <div className="who-img">
+        <div>
           <Image
             src="/images/who-we-are.png"
             alt="Construction illustration"
             width={450}
             height={350}
+            className="w-full h-auto"
           />
         </div>
       </div>

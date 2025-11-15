@@ -19,15 +19,15 @@ export default function Objectives() {
   ];
 
   return (
-    <section className="objectives">
-      <div className="container">
-        <h2 className="text-center">Our Objectives</h2>
-        <div className="objectives-grid">
+    <section className="bg-slate-900 text-white py-16 md:py-28">
+      <div className="container mx-auto px-4">
+        <h2 className="text-center text-3xl md:text-4xl font-bold mb-16">Our Objectives</h2>
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {data.map((item, i) => (
-            <div className="obj-card" key={i}>
-              <div className="obj-icon">{item.icon}</div>
-              <h3>{item.title}</h3>
-              <p>{item.text}</p>
+            <div className="bg-white text-gray-800 rounded-3xl p-8 text-left shadow-lg" key={i}>
+              <div className="text-amber-700 text-4xl mb-4">{item.icon}</div>
+              <h3 className="font-bold mb-3 text-lg">{item.title}</h3>
+              <p className="text-gray-700 text-sm leading-relaxed">{item.text}</p>
             </div>
           ))}
         </div>
