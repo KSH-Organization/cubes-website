@@ -37,9 +37,16 @@
     "quickLinks": "روابط سريعة",
     "contact": "اتصل بنا",
     "email": "البريد الإلكتروني",
+    "emailAddress": "البريد الإلكتروني",
     "phone": "الهاتف",
+    "phoneOptional": "رقم الهاتف (اختياري)",
+    "location": "الموقع",
     "message": "الرسالة",
     "sendMessage": "إرسال الرسالة",
+    "leaveMessage": "اترك لنا رسالة",
+    "linkedin": "لينكدإن",
+    "instagram": "انستغرام",
+    "x": "إكس",
     "copyright": "© 2025 CUBES. جميع الحقوق محفوظة."
   },
   "about": {
@@ -63,8 +70,10 @@
     "subtitle": "هل لديك أي أسئلة؟ يسعدنا سماع منك.",
     "name": "اسمك",
     "email": "بريدك الإلكتروني",
+    "phoneOptional": "رقم الهاتف (اختياري)",
     "message": "رسالتك",
-    "send": "إرسال الرسالة"
+    "send": "إرسال الرسالة",
+    "leaveMessage": "اترك لنا رسالة"
   },
   "people": {
     "title": "فريقنا",

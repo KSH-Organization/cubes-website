@@ -63,15 +63,48 @@ export default function Footer() {
             Send
           </button>
           <div className="flex gap-3">
-            <span className="bg-amber-700 rounded-full w-9 h-9 flex items-center justify-center font-semibold">
-              Dr
-            </span>
-            <span className="bg-amber-700 rounded-full w-9 h-9 flex items-center justify-center font-semibold">
-              Be
-            </span>
-            <span className="bg-amber-700 rounded-full w-9 h-9 flex items-center justify-center font-semibold">
-              Ig
-            </span>
+            <a
+              href="https://www.linkedin.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-amber-700 rounded-full w-9 h-9 flex items-center justify-center"
+            >
+              <img
+                src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/linkedin.svg"
+                alt="LinkedIn"
+                width={24}
+                height={24}
+                style={{ filter: "invert(1) brightness(2)" }}
+              />
+            </a>
+            <a
+              href="https://www.instagram.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-amber-700 rounded-full w-9 h-9 flex items-center justify-center"
+            >
+              <img
+                src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/instagram.svg"
+                alt="Instagram"
+                width={24}
+                height={24}
+                style={{ filter: "invert(1) brightness(2)" }}
+              />
+            </a>
+            <a
+              href="https://x.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-amber-700 rounded-full w-9 h-9 flex items-center justify-center"
+            >
+              <img
+                src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/x.svg"
+                alt="X"
+                width={24}
+                height={24}
+                style={{ filter: "invert(1) brightness(2)" }}
+              />
+            </a>
           </div>
         </div>
       </div>

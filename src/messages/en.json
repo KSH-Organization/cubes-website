@@ -37,9 +37,16 @@
     "quickLinks": "Quick Links",
     "contact": "Contact",
     "email": "Email",
+    "emailAddress": "Email Address",
     "phone": "Phone",
+    "phoneOptional": "Phone Number (optional)",
+    "location": "Location",
     "message": "Message",
     "sendMessage": "Send Message",
+    "leaveMessage": "Leave us a Message",
+    "linkedin": "LinkedIn",
+    "instagram": "Instagram",
+    "x": "X",
     "copyright": "© 2025 CUBES. All rights reserved."
   },
   "about": {
@@ -63,8 +70,10 @@
     "subtitle": "Have any questions? We'd love to hear from you.",
     "name": "Your Name",
     "email": "Your Email",
+    "phoneOptional": "Phone Number (optional)",
     "message": "Your Message",
-    "send": "Send Message"
+    "send": "Send Message",
+    "leaveMessage": "Leave us a Message"
   },
   "people": {
     "title": "Our Team",
