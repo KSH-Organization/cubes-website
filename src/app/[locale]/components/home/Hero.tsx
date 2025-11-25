@@ -44,11 +44,12 @@ export default function Hero() {
                 borderRadius: "100px 100px 0 100px",
               }}
             >
-              <img
+              <Image
                 src="/images/home1.jpg"
                 alt="City view 1"
-                loading="eager"
-                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                fill
+                className="object-cover"
+                priority
               />
             </div>
 
@@ -63,11 +64,12 @@ export default function Hero() {
                 borderRadius: "100px 100px 100px 0",
               }}
             >
-              <img
+              <Image
                 src="/images/home2.jpg"
                 alt="City view 2"
-                loading="eager"
-                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                fill
+                className="object-cover"
+                priority
               />
             </div>
 
@@ -82,11 +84,12 @@ export default function Hero() {
                 borderRadius: "100px 0 100px 100px",
               }}
             >
-              <img
+              <Image
                 src="/images/home3.jpg"
                 alt="City view 3"
-                loading="eager"
-                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                fill
+                className="object-cover"
+                priority
               />
             </div>
           </div>
