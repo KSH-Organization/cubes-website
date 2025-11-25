@@ -14,13 +14,13 @@ export default function Objectives() {
 
   // Icons array remains the same since they are React elements
   const icons: ReactElement[] = [
-    <FaAward />,
-    <FaFolderOpen />,
-    <FaHandshake />,
-    <FaRegLightbulb />,
-    <FaGlobe />,
-    <FaLeaf />,
-    <FaBuilding />,
+    <FaAward key="award" />,
+    <FaFolderOpen key="folder" />,
+    <FaHandshake key="handshake" />,
+    <FaRegLightbulb key="bulb" />,
+    <FaGlobe key="globe" />,
+    <FaLeaf key="leaf" />,
+    <FaBuilding key="building" />,
   ];
 
   // Dynamic data loading
