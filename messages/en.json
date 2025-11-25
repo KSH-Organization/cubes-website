@@ -1,0 +1,205 @@
+{
+  "navbar": {
+    "home": "Home",
+    "about": "About",
+    "people": "People",
+    "contactUs": "Contact Us",
+    "language": "العربية"
+  },
+  "footer": {
+    "location": "Location",
+    "email": "Email",
+    "company": "Company",
+    "team": "Our Team",
+    "contactUsTitle": "Contact Us",
+    "placeholder": "Enter your message",
+    "send": "Send",
+    "copyright": "© Copyright KSHC Construction & Real Estate"
+  },
+  "aboutPage": {
+    "heroTitle": "Redefining Real Estate with Innovation and Integrity",
+    "whoWeAreTitle": "Who We Are",
+    "whoWeAreText": "Kuwait-Sudan Holding Company (Cube) plays a significant role in Sudan's construction projects, executing large-scale real estate and construction ventures that contribute to improving infrastructure and meeting local market needs. Through its Project Management Office (PMO), the company ensures these projects are executed according to approved standards, monitoring quality, managing risks, and guaranteeing adherence to timelines and budgets. This contributes to achieving sustainable development goals, enhancing infrastructure, and supporting commercial growth in Sudan.",
+    "visionTitle": "Vision",
+    "visionText": "To be the leading company in project management and real estate development by providing integrated, innovative, and technology-supported solutions that meet the highest standards of quality and sustainability, contributing to the growth of modern and prosperous communities.",
+    "missionTitle": "Mission",
+    "missionText": "At Cube, we believe the success of any project begins with meticulous planning and precise execution. We strive to deliver integrated project management and real estate development services with high quality and on schedule. We utilize modern systems and technologies to organize documentation and improve performance, focusing on sustainability through projects that preserve the environment. Our goal is to provide a distinguished client experience through innovative real estate solutions and professional consultation.",
+    "whyUsTitle": "Why Us?",
+    "whyUsPoints": [
+      "Proven expertise in managing real estate, commercial, and technical projects.",
+      "Customized solutions designed to meet each client's specific needs.",
+      "Strong commitment to quality, cost control, and on-time delivery.",
+      "Transparency and trust through clear reports and an accurate view of projects.",
+      "Innovative vision keeping pace with market trends.",
+      "Modern and functional designs that combine elegance and practicality.",
+      "Comprehensive services from planning to handover and management.",
+      "The highest standards in construction, finishing, and sustainability."
+    ],
+    "projectsTitle": "Project Management Projects",
+    "projectLocation": "Location",
+    "projectFunctions": "Functions",
+    "projectArea": "Area",
+    "projectStatus": "Status"
+  },
+  "projectData": [
+    {
+      "title": "Call Center Building - 001",
+      "location": "Plot No. 16, Square 01, Bashir Al-Nefeidi Street, Khartoum, Sudan.",
+      "functions": "Administration",
+      "details": "The building consists of a basement, a ground floor, seven upper floors, and a roof.",
+      "area": "805 m²",
+      "status": "Completed"
+    },
+    {
+      "title": "Headquarters - 002",
+      "location": "Khartoum South, Sudan.",
+      "functions": "Administrative Building",
+      "details": "Administrative building consisting of a basement, ground floor, and five upper floors.",
+      "area": "1200 m²",
+      "status": "In Progress"
+    }
+  ],
+  "hero": {
+    "title": "Towards a Brighter Future for Sudan",
+    "subtitle": "Achieving sustainable growth through innovative construction and real estate development",
+    "contactUs": "Contact us"
+  },
+  "objectives": {
+    "title": "Our Objectives",
+    "data": [
+      {
+        "title": "Achieving Excellence in Project Management",
+        "text": "By applying best practices and standardized forms to streamline operations."
+      },
+      {
+        "title": "Enhancing Document Management and Archiving Efficiency",
+        "text": "Through a modern digital system that ensures easy access and governance."
+      },
+      {
+        "title": "Increasing Client Satisfaction Rates",
+        "text": "By providing customized consultations and technological support to help them achieve their goals."
+      },
+      {
+        "title": "Leveraging Technology and Innovation",
+        "text": "To enhance project execution efficiency and reduce operational costs."
+      },
+      {
+        "title": "Expanding Our Network of Partners and Clients",
+        "text": "By building sustainable strategic relationships that drive market growth in Cube."
+      },
+      {
+        "title": "Meeting Sustainability Standards",
+        "text": "By developing projects that minimize environmental impact and promote smart resource utilization."
+      },
+      {
+        "title": "Investing in Workforce Development",
+        "text": "Through continuous training on the latest project management tools and real estate technologies."
+      }
+    ]
+  },
+  "projectManagement": {
+    "title": "Project Management Services",
+    "subtitle": "At Cube, we understand that the success of any project depends on meticulous planning, effective management, and error-free execution. Therefore, we offer a comprehensive range of project management services designed to help you achieve your goals with high quality, on time, and within the approved budget.",
+    "data": [
+      {
+        "title": "End-to-End Project Management",
+        "description": "We offer full-cycle project management, from initiation to successful completion, in accordance with international standards."
+      },
+      {
+        "title": "Planning and Scheduling",
+        "description": "We help you develop comprehensive project plans based on in-depth analysis to ensure smooth execution without delays."
+      },
+      {
+        "title": "Risk Management and Mitigation Strategies",
+        "description": "We identify potential risks and implement effective, proactive strategies to prevent disruptions and improve workflow."
+      },
+      {
+        "title": "Performance Monitoring and Quality Assurance",
+        "description": "We apply robust quality monitoring mechanisms to ensure compliance with industry standards and enhance execution efficiency."
+      },
+      {
+        "title": "Budget and Cost Management",
+        "description": "We assist you in accurate budgeting with strict financial control to prevent cost overruns."
+      },
+      {
+        "title": "Stakeholder Management and Communication",
+        "description": "We ensure effective collaboration among all stakeholders to achieve a unified project vision."
+      },
+      {
+        "title": "Contract and Supplier Management",
+        "description": "We help you select the right suppliers and manage contracts to ensure the highest quality in service delivery."
+      },
+      {
+        "title": "Project Management Consulting and Training",
+        "description": "We provide specialized consulting and training programs to develop and enhance your team's skills in project management."
+      }
+    ]
+  },
+  "realEstate": {
+    "title": "Real Estate Development Services",
+    "subtitle": "At Cube, we don't just develop properties; we create integrated communities that reflect innovation, quality, and sustainability. Through our ambitious vision and deep expertise in the real estate sector, we offer comprehensive solutions for residential, commercial, and investment projects that meet market needs and provide long-term value to our clients.",
+    "data": [
+      {
+        "title": "Strategic Research and Planning Department",
+        "description": "We conduct in-depth market analysis to identify prime locations and promising investment opportunities, ensuring the success and sustainability of our projects."
+      },
+      {
+        "title": "Architectural Design and Planning",
+        "description": "Our team of senior architects and designers develops modern and sustainable designs, combining aesthetics and functionality to provide a comfortable and seamless user experience."
+      },
+      {
+        "title": "Regulatory Compliance and Permits",
+        "description": "We ensure full compliance with regulations and efficiently obtain all necessary permits, guaranteeing that our projects meet the highest legal and engineering standards."
+      },
+      {
+        "title": "High-Quality Project Execution",
+        "description": "By utilizing the latest construction technologies and collaborating with top contractors and suppliers, we ensure our projects are completed accurately, on time, and within budget."
+      },
+      {
+        "title": "Effective Marketing and Sales Strategies",
+        "description": "We implement comprehensive marketing strategies to reach the right audience, and we offer flexible financing solutions and payment plans that make investing in our projects easy and accessible."
+      },
+      {
+        "title": "Post-Handover Property Management",
+        "description": "Our property management services ensure smooth operations, increasing asset value and providing a comfortable and seamless experience for customers and investors."
+      }
+    ]
+  },
+  "services": {
+    "title": "KSHC Construction & Real Estate Services",
+    "projectManagement": "Project Management",
+    "realEstate": "Real Estate"
+  },
+  "whoWeAre": {
+    "title": "Who We Are",
+    "text": "Kuwait-Sudan Holding Company plays a significant role in construction projects in Sudan, executing large-scale real estate and construction ventures that contribute to improving infrastructure and meeting local market demands. Through the Project Management Office, the company ensures the successful execution of these projects according to established standards, with quality and risk monitoring, and guaranteeing adherence to timelines and budgets. This contributes to achieving sustainable development goals, enhancing infrastructure, and expanding commercial growth in Sudan. The company is deeply involved in real estate development, focusing on building residential, commercial, and mixed-use projects. It strives to meet the increasing demand for high-quality properties in Sudan, aiming to improve urban living standards and contribute to the overall development of the real estate market. Through its strategic investments and high-quality construction, the company positions itself as a key player in shaping the urban landscape of Sudan."
+  },
+  "contactPage": {
+    "title": "Get in Touch With Us",
+    "namePlaceholder": "Your Name",
+    "emailPlaceholder": "Your Email",
+    "subjectPlaceholder": "Subject",
+    "messagePlaceholder": "Your Message"
+  },"peoplePage": {
+    "heroTitle": "Departments Driving Success, People Creating Inspiration",
+    "departmentsTitle": "Our Departments",
+    "departments": [
+      {
+        "title": "Real Estate Development",
+        "desc": "Responsible for identifying and evaluating real estate opportunities, conducting feasibility studies, and planning projects from conception to execution with the aim of maximizing investment returns."
+      },
+      {
+        "title": "Project Management Office",
+        "desc": "Oversees the planning and execution of all projects, ensuring adherence to schedule and budget, setting standards, monitoring performance, and managing risks to guarantee high-quality delivery."
+      },
+      {
+        "title": "Quality and Control",
+        "desc": "Focuses on establishing and monitoring quality policies and standards, conducting audits, and driving continuous improvement in operations, products, and services."
+      },
+      {
+        "title": "Customer Service",
+        "desc": "Manages all customer interactions before, during, and after service delivery, responding to inquiries and complaints to ensure customer satisfaction and enhance the overall experience."
+      }
+    ]
+  }
+}

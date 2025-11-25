@@ -1,36 +1,41 @@
 import Link from "next/link";
 import Image from "next/image";
+import { useTranslations } from "next-intl"; // Import hooks for translations
 
 export default function Footer() {
+  const t = useTranslations("footer");
+
   return (
     <footer className="bg-slate-900 text-white py-12 md:py-20">
       <div className="container mx-auto px-4 grid gap-10 md:grid-cols-3 mb-10">
+
         {/* Column 1 */}
         <div>
           <Image
             src="/images/logo.png"
-            alt="CUBES Logo"
+            alt="KSHC Logo"
             width={140}
             height={140}
             className="w-36 mb-6"
           />
           <ul className="space-y-2">
-            <li>📍 Location</li>
-            <li>📧 Email Address</li>
-            <li>📞 +249900000000</li>
+            <li>📍 {t("location")}</li>
+            <li>📧 {t("email")}</li>
+            <li>📞 ‎+249900000000</li>
           </ul>
         </div>
 
         {/* Column 2 */}
         <div>
-          <h4 className="text-amber-700 mb-4 font-bold">Company</h4>
+          <h4 className="text-amber-700 mb-4 font-bold">{t("company")}</h4>
           <ul className="space-y-2">
             <li>
               <Link
                 href="/about"
                 className="hover:text-amber-700 transition-colors"
               >
-                About Us
+                {/* Nested lookup for 'من نحن' translation from navbar/about */}
+                {useTranslations("navbar")("about")} 
               </Link>
             </li>
             <li>
@@ -38,7 +43,7 @@ export default function Footer() {
                 href="/people"
                 className="hover:text-amber-700 transition-colors"
               >
-                People
+                {t("team")}
               </Link>
             </li>
             <li>
@@ -46,7 +51,8 @@ export default function Footer() {
                 href="/contact"
                 className="hover:text-amber-700 transition-colors"
               >
-                Contact Us
+                {/* Nested lookup for 'تواصل معنا' translation from navbar/contactUs */}
+                {useTranslations("navbar")("contactUs")} 
               </Link>
             </li>
           </ul>
@@ -54,14 +60,15 @@ export default function Footer() {
 
         {/* Column 3 */}
         <div>
-          <h4 className="text-amber-700 mb-4 font-bold">Contact Us</h4>
+          <h4 className="text-amber-700 mb-4 font-bold">{t("contactUsTitle")}</h4>
           <textarea
-            placeholder="Enter message"
+            placeholder={t("placeholder")}
             className="w-full px-3 py-2 mb-3 rounded-xl border border-white bg-transparent text-white placeholder-opacity-85 placeholder-white focus:border-white focus:outline-none transition-colors"
           ></textarea>
           <button className="bg-amber-700 text-white px-6 py-2 rounded-xl mb-4 hover:bg-amber-900 transition-colors font-semibold">
-            Send
+            {t("send")}
           </button>
+
           <div className="flex gap-3">
             <a
               href="https://www.linkedin.com"
@@ -77,6 +84,7 @@ export default function Footer() {
                 style={{ filter: "invert(1) brightness(2)" }}
               />
             </a>
+
             <a
               href="https://www.instagram.com"
               target="_blank"
@@ -91,6 +99,7 @@ export default function Footer() {
                 style={{ filter: "invert(1) brightness(2)" }}
               />
             </a>
+
             <a
               href="https://x.com"
               target="_blank"
@@ -108,8 +117,9 @@ export default function Footer() {
           </div>
         </div>
       </div>
+
       <div className="text-center border-t border-white border-opacity-20 pt-4 mt-10 text-sm text-gray-300">
-        Copyright © KSHC Construction & Real Estate
+        {t("copyright")}
       </div>
     </footer>
   );

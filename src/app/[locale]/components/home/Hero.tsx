@@ -1,7 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
+import { useTranslations } from "next-intl"; // Import the useTranslations hook
 
 export default function Hero() {
+  const t = useTranslations("hero"); // Scope translations to the 'hero' object
+
   return (
     <section className="relative bg-gradient-to-br from-slate-700 via-slate-800 to-slate-900 text-white py-20 md:py-32">
       <div className="container mx-auto px-4">
@@ -9,24 +12,23 @@ export default function Hero() {
           {/* Left column - Text */}
           <div className="w-full md:w-auto md:flex-1">
             <h1 className="text-5xl md:text-6xl font-bold leading-tight mb-6">
-              Building Sudan&apos;s Future
+              {/* Dynamic Content */}
+              {t("title")}
             </h1>
             <p className="text-lg md:text-xl leading-relaxed mb-8 text-gray-200">
-              Driving Sustainable Growth
-              <br />
-              Through Innovative Construction
-              <br />
-              and Real Estate.
+              {/* Dynamic Content */}
+              {t("subtitle")}
             </p>
             <Link
               href="/contact"
               className="inline-flex items-center justify-center bg-amber-600 text-white font-semibold rounded-lg px-8 py-3 transition-all hover:bg-amber-700"
             >
-              Contact us
+              {/* Dynamic Content */}
+              {t("contactUs")}
             </Link>
           </div>
 
-          {/* Right column - Images */}
+          {/* Right column - Images (No changes needed here as images/styles are static) */}
           <div
             className="relative shrink-0 hidden md:block"
             style={{ width: "539px", height: "470px" }}
