@@ -1,0 +1,63 @@
+import type { ReactNode } from "react";
+
+type HeroProps = {
+  image: string;
+  badge?: string;
+  dot?: boolean;
+  title: ReactNode;
+  subtitle?: ReactNode;
+  size?: "xl" | "lg" | "md" | "sm";
+  children?: ReactNode;
+};
+
+const heights: Record<NonNullable<HeroProps["size"]>, string> = {
+  xl: "min-h-[640px] lg:min-h-[772px]",
+  lg: "min-h-[560px] lg:min-h-[648px]",
+  md: "min-h-[480px] lg:min-h-[552px]",
+  sm: "min-h-[400px] lg:min-h-[432px]",
+};
+
+const titleSizes: Record<NonNullable<HeroProps["size"]>, string> = {
+  xl: "text-4xl sm:text-5xl lg:text-[64px] lg:leading-[1.1]",
+  lg: "text-4xl sm:text-5xl lg:text-[64px] lg:leading-[1.1]",
+  md: "text-4xl sm:text-5xl lg:text-[56px] lg:leading-[1.1]",
+  sm: "text-3xl sm:text-4xl lg:text-[48px] lg:leading-[1.2]",
+};
+
+export default function Hero({
+  image,
+  badge,
+  dot = true,
+  title,
+  subtitle,
+  size = "lg",
+  children,
+}: HeroProps) {
+  return (
+    <section
+      className={`relative flex ${heights[size]} items-center bg-cover bg-center`}
+      style={{ backgroundImage: `url(${image})` }}
+    >
+      <div className="absolute inset-0 bg-overlay/70" aria-hidden />
+      <div className="relative mx-auto w-full max-w-[1200px] px-5 py-20 lg:px-0">
+        {badge && (
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-2 text-[13px] font-bold text-white backdrop-blur-sm">
+            {dot && <span className="h-2 w-2 rounded-full bg-orange" aria-hidden />}
+            {badge}
+          </span>
+        )}
+        <h1
+          className={`mt-6 max-w-[820px] font-extrabold text-white ${titleSizes[size]}`}
+        >
+          {title}
+        </h1>
+        {subtitle && (
+          <p className="mt-6 max-w-[760px] text-base leading-relaxed text-slate-100 sm:text-lg">
+            {subtitle}
+          </p>
+        )}
+        {children}
+      </div>
+    </section>
+  );
+}

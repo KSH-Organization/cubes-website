@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+  --font-manrope: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+}
+
+@theme {
+  /* Brand palette from Figma */
+  --color-navy: #07364d;
+  --color-navy-deep: #0a1628;
+  --color-overlay: #073661;
+  --color-royal: #103f6a;
+  --color-orange: #e8871e;
+  --color-orange-dark: #b05e00;
+  --color-orange-mid: #e57c04;
+  --color-cream: #fdf2e3;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: #07364d;
+  background: #fff;
+}
