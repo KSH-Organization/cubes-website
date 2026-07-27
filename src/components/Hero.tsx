@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Fragment } from "react";
 
 type HeroProps = {
   image: string;
@@ -23,6 +24,23 @@ const titleSizes: Record<NonNullable<HeroProps["size"]>, string> = {
   md: "text-4xl sm:text-5xl lg:text-[56px] lg:leading-[1.1]",
   sm: "text-3xl sm:text-4xl lg:text-[48px] lg:leading-[1.2]",
 };
+
+/**
+ * Renders a CMS string with line breaks: a literal "\n" (or a real newline)
+ * becomes a <br> that only shows on wider screens, matching how these
+ * headings were hand-wrapped before the copy moved into the CMS.
+ */
+function withBreaks(value: ReactNode): ReactNode {
+  if (typeof value !== "string") return value;
+  const lines = value.split(/\r?\n|\\n/);
+  if (lines.length === 1) return value;
+  return lines.map((line, i) => (
+    <Fragment key={i}>
+      {i > 0 && <br className="hidden sm:block" />}
+      {line}
+    </Fragment>
+  ));
+}
 
 export default function Hero({
   image,
@@ -49,7 +67,7 @@ export default function Hero({
         <h1
           className={`mt-6 max-w-[820px] font-extrabold text-white ${titleSizes[size]}`}
         >
-          {title}
+          {withBreaks(title)}
         </h1>
         {subtitle && (
           <p className="mt-6 max-w-[760px] text-base leading-relaxed text-slate-100 sm:text-lg">

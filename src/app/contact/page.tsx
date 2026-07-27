@@ -2,27 +2,31 @@ import type { Metadata } from "next";
 import Hero from "@/components/Hero";
 import SectionHeading from "@/components/SectionHeading";
 import ContactForm from "@/components/ContactForm";
+import { getContent, text } from "@/lib/cms";
 
-export const metadata: Metadata = {
-  title: "Contact Us | KSHC Construction & Real Estate",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const c = await getContent();
+  return { title: text(c, "contact.meta.title") };
+}
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const c = await getContent();
+
   return (
     <>
       <Hero
-        image="/images/hero-contact.jpg"
-        badge="Contact Us"
+        image={text(c, "contact.hero.image")}
+        badge={text(c, "contact.hero.badge")}
         size="lg"
-        title="Get in Touch With Us"
-        subtitle="We're here to help. Send us a message and our team will get back to you as soon as possible."
+        title={text(c, "contact.hero.title")}
+        subtitle={text(c, "contact.hero.subtitle")}
       />
 
       <section className="py-20 lg:py-28">
         <div className="mx-auto max-w-[1200px] px-5 lg:px-0">
           <SectionHeading
-            title="Contact Information"
-            subtitle="Reach out to our team for inquiries, partnerships, or to learn more about our services."
+            title={text(c, "contact.info.title")}
+            subtitle={text(c, "contact.info.subtitle")}
           />
           <div className="mt-14">
             <ContactForm />

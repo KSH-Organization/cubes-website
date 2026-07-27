@@ -2,20 +2,25 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import SmartImage from "./SmartImage";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 
-const links = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/people", label: "People" },
-  { href: "/services", label: "Services" },
-  { href: "/news", label: "News & Events" },
-  { href: "/career", label: "Career" },
-];
+export type NavbarProps = {
+  brand: { name: string; tagline: string; logo: string };
+  nav: Record<string, string>;
+};
 
-export default function Navbar() {
+export default function Navbar({ brand, nav }: NavbarProps) {
+  const links = [
+    { href: "/", label: nav.home },
+    { href: "/about", label: nav.about },
+    { href: "/people", label: nav.people },
+    { href: "/services", label: nav.services },
+    { href: "/news", label: nav.news },
+    { href: "/career", label: nav.career },
+  ];
+
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
@@ -23,18 +28,18 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 bg-navy">
       <div className="mx-auto flex h-[88px] max-w-[1200px] items-center justify-between px-5 lg:px-0">
         <Link href="/" className="flex items-center gap-3" onClick={() => setOpen(false)}>
-          <Image
-            src="/images/logo.png"
-            alt="KSHC logo"
+          <SmartImage
+            src={brand.logo}
+            alt={`${brand.name} logo`}
             width={48}
             height={48}
             className="h-12 w-12 object-contain"
           />
           <span className="leading-tight">
-            <span className="block text-base font-bold text-white">KSHC</span>
-            <span className="block text-xs text-slate-300">
-              Construction &amp; Real Estate
+            <span className="block text-base font-bold text-white">
+              {brand.name}
             </span>
+            <span className="block text-xs text-slate-300">{brand.tagline}</span>
           </span>
         </Link>
 
@@ -57,11 +62,11 @@ export default function Navbar() {
             href="/contact"
             className="hidden rounded-full bg-gradient-to-b from-orange to-orange-mid px-6 py-3 text-sm font-bold text-white shadow-[0_6px_18px_rgba(232,135,30,0.45)] transition-transform hover:scale-[1.03] sm:inline-block"
           >
-            Contact Us
+            {nav.contact}
           </Link>
           <button
             type="button"
-            aria-label={open ? "Close menu" : "Open menu"}
+            aria-label={open ? nav.closeMenu : nav.openMenu}
             onClick={() => setOpen(!open)}
             className="text-white lg:hidden"
           >
@@ -89,7 +94,7 @@ export default function Navbar() {
             onClick={() => setOpen(false)}
             className="mt-5 inline-block rounded-full bg-gradient-to-b from-orange to-orange-mid px-6 py-3 text-sm font-bold text-white"
           >
-            Contact Us
+            {nav.contact}
           </Link>
         </nav>
       )}

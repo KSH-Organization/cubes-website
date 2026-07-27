@@ -1,71 +1,34 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
+import SmartImage from "./SmartImage";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-const events = [
-  {
-    date: "March 2022",
-    location: "KSHC Headquarters",
-    organizer: "KSHC Project Management Office - CUBE",
-    title: "Structural Design Workshop",
-    overview:
-      "This technical workshop was organized to address a major structural design issue identified in one of KSHC-Cube's development projects. After the contractor completed the design review, several critical errors were detected, requiring immediate collaborative intervention before issuing the final Issued for Construction (IFC) drawings.",
-    activities:
-      "Brought together contractor, consultant, and third-party structural engineering expert for detailed discussions, reviewed problematic sections, and explored engineering alternatives.",
-    outcome:
-      "Identified root cause, agreed on optimal engineering solutions, aligned all parties on updated design details, ensured IFC drawings were prepared accurately.",
-    images: [
-      "/images/event-1.jpg",
-      "/images/event-2.jpg",
-      "/images/event-3.jpg",
-      "/images/event-4.jpg",
-    ],
-  },
-  {
-    date: "November 2023",
-    location: "KSHC Headquarters",
-    organizer: "KSHC Project Management Office - CUBE",
-    title: "Project Management Training Program",
-    overview:
-      "An intensive capacity-building program designed to strengthen project management skills across KSHC-Cube teams. The program covered international frameworks and modern planning tools used in large-scale construction delivery.",
-    activities:
-      "Delivered hands-on training in Primavera P6 scheduling, earned value management, and risk workshops, with case studies drawn from ongoing KSHC-Cube projects.",
-    outcome:
-      "Raised team proficiency in scheduling and cost control, standardized reporting templates, and established a shared project governance language across departments.",
-    images: [
-      "/images/event-3.jpg",
-      "/images/event-4.jpg",
-      "/images/event-1.jpg",
-      "/images/event-2.jpg",
-    ],
-  },
-  {
-    date: "June 2024",
-    location: "Khartoum",
-    organizer: "KSHC Project Management Office - CUBE",
-    title: "Engineering Coordination Forum",
-    overview:
-      "A cross-disciplinary forum bringing together consultants, contractors, and suppliers to align on engineering standards, quality expectations, and delivery timelines for KSHC-Cube's active developments.",
-    activities:
-      "Facilitated coordination sessions between design and site teams, reviewed interface issues across structural and MEP packages, and agreed on escalation workflows.",
-    outcome:
-      "Improved cross-party coordination, reduced design clashes, and set a recurring cadence for technical alignment meetings across all major projects.",
-    images: [
-      "/images/event-2.jpg",
-      "/images/event-1.jpg",
-      "/images/event-4.jpg",
-      "/images/event-3.jpg",
-    ],
-  },
-];
+export type EventRow = {
+  key: string;
+  title: string;
+  date: string;
+  location: string;
+  organizer: string;
+  overview: string;
+  activities: string;
+  outcome: string;
+  /** Up to four photos, each edited on this event's own row in the CMS. */
+  image1?: string;
+  image2?: string;
+  image3?: string;
+  image4?: string;
+};
 
-export default function EventsCarousel() {
+export default function EventsCarousel({ events }: { events: EventRow[] }) {
   const [index, setIndex] = useState(0);
   const event = events[index];
   const prev = () => setIndex((index + events.length - 1) % events.length);
   const next = () => setIndex((index + 1) % events.length);
+  if (!event) return null;
+  const photos = [event.image1, event.image2, event.image3, event.image4].filter(
+    (src): src is string => typeof src === "string" && src.trim() !== "",
+  );
 
   return (
     <div className="relative mt-14">
@@ -104,9 +67,9 @@ export default function EventsCarousel() {
             </p>
             <p className="font-manrope mt-1 text-navy">{event.organizer}</p>
             <div className="mt-7 grid grid-cols-2 gap-3">
-              {event.images.map((src, i) => (
-                <Image
-                  key={`${event.title}-${i}`}
+              {photos.map((src, i) => (
+                <SmartImage
+                  key={`${event.key}-${i}`}
                   src={src}
                   alt={`${event.title} photo ${i + 1}`}
                   width={268}
@@ -152,7 +115,7 @@ export default function EventsCarousel() {
       <div className="mt-8 flex items-center justify-center gap-2">
         {events.map((e, i) => (
           <button
-            key={e.title}
+            key={e.key}
             type="button"
             aria-label={`Go to event ${i + 1}`}
             onClick={() => setIndex(i)}

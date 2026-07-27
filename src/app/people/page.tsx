@@ -1,66 +1,44 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Hero from "@/components/Hero";
 import SectionHeading from "@/components/SectionHeading";
+import SmartImage from "@/components/SmartImage";
+import { getContent, list, text } from "@/lib/cms";
 
-export const metadata: Metadata = {
-  title: "People | KSHC Construction & Real Estate",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const c = await getContent();
+  return { title: text(c, "people.meta.title") };
+}
 
-const departments = [
-  {
-    title: "Real Estate Development",
-    body: "Responsible for identifying and evaluating property opportunities, conducting feasibility studies, and planning projects from concept to execution to maximize investment returns.",
-    image: "/images/dept-realestate.jpg",
-  },
-  {
-    title: "Project Management Office",
-    body: "Oversees the planning and execution of all projects, ensuring they meet timelines and budgets, while setting standards, tracking performance, and managing risks for quality delivery.",
-    image: "/images/dept-pmo.jpg",
-  },
-  {
-    title: "Quality and Control",
-    body: "Focuses on establishing and monitoring quality policies and standards, performing audits, and driving continuous improvement across processes, products, and services.",
-    image: "/images/dept-quality.jpg",
-  },
-  {
-    title: "Customer Service",
-    body: "Handles all customer interactions before, during, and after service delivery, addressing inquiries and complaints to ensure customer satisfaction and enhance their overall experience.",
-    image: "/images/dept-customer.jpg",
-  },
-];
+type DepartmentRow = { key: string; title: string; body: string; image?: string };
 
-export default function PeoplePage() {
+export default async function PeoplePage() {
+  const c = await getContent();
+  const departments = list<DepartmentRow>(c, "people.departments");
+
   return (
     <>
       <Hero
-        image="/images/hero-people.jpg"
-        badge="Our Expertise"
+        image={text(c, "people.hero.image")}
+        badge={text(c, "people.hero.badge")}
         size="lg"
-        title={
-          <>
-            Departments That
-            <br className="hidden sm:block" /> Deliver, People Who
-            <br className="hidden sm:block" /> Inspire
-          </>
-        }
-        subtitle="We are organized into specialized departments that work together to ensure every project is executed with precision, quality, and long-term value."
+        title={text(c, "people.hero.title")}
+        subtitle={text(c, "people.hero.subtitle")}
       />
 
       <section className="py-20 lg:py-28">
         <div className="mx-auto max-w-[1200px] px-5 lg:px-0">
           <SectionHeading
-            title="Our Departments"
-            subtitle="Our organizational structure is designed to maximize efficiency and collaboration. Each department plays a critical role in delivering high-quality projects and exceptional client experiences."
+            title={text(c, "people.departmentsSection.title")}
+            subtitle={text(c, "people.departmentsSection.subtitle")}
           />
           <div className="mt-14 grid gap-8 md:grid-cols-2 lg:gap-x-20 lg:gap-y-10">
             {departments.map((d) => (
               <div
-                key={d.title}
+                key={d.key}
                 className="overflow-hidden rounded-xl border border-gray-100 bg-white shadow-md"
               >
-                <Image
-                  src={d.image}
+                <SmartImage
+                  src={d.image ?? ""}
                   alt={d.title}
                   width={910}
                   height={440}

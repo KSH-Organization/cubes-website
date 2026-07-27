@@ -3,6 +3,7 @@ import { Montserrat, Manrope } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { getContent, pick, text } from "@/lib/cms";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -22,17 +23,33 @@ export const metadata: Metadata = {
     "KSHC Construction & Real Estate — driving sustainable growth through innovative construction and real estate across Sudan.",
 };
 
-export default function RootLayout({
+type Json = Record<string, unknown>;
+
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  // Site chrome comes from the CMS too (brand, nav labels, footer links).
+  const c = await getContent();
+  const brand = {
+    name: text(c, "globals.brand.name"),
+    tagline: text(c, "globals.brand.tagline"),
+    logo: text(c, "globals.brand.logo"),
+  };
+  const nav = (pick(c, "globals.nav") ?? {}) as Record<string, string>;
+  const footer = (pick(c, "globals.footer") ?? {}) as Json;
+
   return (
     <html lang="en">
       <body
         className={`${montserrat.variable} ${manrope.variable} antialiased`}
       >
-        <Navbar />
+        <Navbar brand={brand} nav={nav} />
         <main>{children}</main>
-        <Footer />
+        <Footer
+          brand={brand}
+          footer={footer as never}
+          copyright={text(c, "globals.footer.copyright")}
+        />
       </body>
     </html>
   );
