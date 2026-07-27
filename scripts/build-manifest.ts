@@ -184,6 +184,7 @@ const forms = [
         name: "Job Applications",
         slug: "job-applications",
         description: "Applications submitted from the careers page",
+        // ids mirror the name attributes in src/components/ApplicationForm.tsx
         fields: [
             { id: "fullName", type: "text", label: "Full name", required: true },
             { id: "email", type: "email", label: "Email", required: true },
@@ -195,7 +196,19 @@ const forms = [
             { id: "position", type: "text", label: "Position applying for", required: true },
             { id: "experience", type: "text", label: "Years of experience", required: true },
             { id: "employer", type: "text", label: "Current employer" },
-            { id: "cv", type: "text", label: "CV link" },
+            { id: "jobTitle", type: "text", label: "Current job title" },
+            { id: "expectedSalary", type: "text", label: "Expected salary range" },
+            { id: "startDate", type: "text", label: "Available start date" },
+            { id: "degree", type: "text", label: "Highest degree", required: true },
+            { id: "university", type: "text", label: "University / institution", required: true },
+            { id: "fieldOfStudy", type: "text", label: "Field of study", required: true },
+            { id: "graduationYear", type: "text", label: "Graduation year" },
+            // Uploads are files; submissions are JSON, so we record the chosen
+            // filenames and ask for links in the notes.
+            { id: "cv", type: "text", label: "CV filename" },
+            { id: "coverLetter", type: "text", label: "Cover letter filename" },
+            { id: "certificates", type: "text", label: "Certificate filenames" },
+            { id: "motivation", type: "textarea", label: "Why join KSHC-Cube?" },
             { id: "notes", type: "textarea", label: "Additional notes" },
         ],
     },

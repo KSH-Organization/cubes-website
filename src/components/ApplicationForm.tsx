@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, type ReactNode } from "react";
-import { CalendarDays, ChevronDown, UploadCloud } from "lucide-react";
+import { useState, type FormEvent, type ReactNode } from "react";
+import { CalendarDays, ChevronDown, Loader2, UploadCloud } from "lucide-react";
+import { submitEntry } from "@/lib/submit";
 
 const inputClass =
   "h-12 w-full rounded-lg border border-gray-200 bg-white px-4 text-navy placeholder:text-gray-400 focus:border-orange focus:outline-none";
@@ -36,10 +37,10 @@ function Card({ title, children }: { title: string; children: ReactNode }) {
   );
 }
 
-function DateInput({ placeholder }: { placeholder: string }) {
+function DateInput({ name, placeholder }: { name: string; placeholder: string }) {
   return (
     <div className="relative">
-      <input type="text" placeholder={placeholder} className={inputClass} />
+      <input type="text" name={name} placeholder={placeholder} className={inputClass} />
       <CalendarDays
         size={18}
         className="pointer-events-none absolute top-1/2 right-4 -translate-y-1/2 text-gray-400"
@@ -79,6 +80,7 @@ function UploadZone({
         </span>
         <input
           id={id}
+          name={id}
           type="file"
           accept=".pdf,.doc,.docx"
           className="sr-only"
@@ -91,21 +93,47 @@ function UploadZone({
 
 export default function ApplicationForm() {
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (sending) return;
+    const form = e.currentTarget;
+    const raw = new FormData(form);
+
+    // Submissions are JSON, so uploads travel as their filenames — the actual
+    // documents are collected separately (the notes field asks for links).
+    const data: Record<string, unknown> = Object.fromEntries(
+      [...raw.entries()].filter(([, v]) => typeof v === "string"),
+    );
+    for (const key of ["cv", "coverLetter", "certificates"]) {
+      const file = raw.get(key);
+      if (file instanceof File && file.name) data[key] = file.name;
+    }
+
+    setSending(true);
+    setError(null);
+    const result = await submitEntry("job-applications", data);
+    setSending(false);
+    if (result.ok) {
+      setSubmitted(true);
+      form.reset();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      // Keep everything they typed — this is a long form to re-fill.
+      setError(result.error);
+    }
+  }
 
   return (
-    <form
-      className="space-y-10"
-      onSubmit={(e) => {
-        e.preventDefault();
-        setSubmitted(true);
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }}
-    >
+    <form className="space-y-10" onSubmit={handleSubmit}>
       <Card title="Personal Information">
         <div className="grid gap-6 md:grid-cols-2">
           <Field label="Full Name" required>
             <input
-              type="text"
+              name="fullName"
+                            type="text"
               required
               placeholder="e.g. Ahmed Mohammed"
               className={inputClass}
@@ -113,7 +141,8 @@ export default function ApplicationForm() {
           </Field>
           <Field label="Email Address" required>
             <input
-              type="email"
+              name="email"
+                            type="email"
               required
               placeholder="name@example.com"
               className={inputClass}
@@ -121,21 +150,23 @@ export default function ApplicationForm() {
           </Field>
           <Field label="Phone Number" required>
             <input
-              type="tel"
+              name="phone"
+                            type="tel"
               required
               placeholder="+249 XXX XXX XXX"
               className={inputClass}
             />
           </Field>
           <Field label="Date of Birth">
-            <DateInput placeholder="DD / MM / YYYY" />
+            <DateInput name="dateOfBirth" placeholder="DD / MM / YYYY" />
           </Field>
           <Field label="Nationality">
-            <input type="text" placeholder="e.g. Sudanese" className={inputClass} />
+            <input name="nationality" type="text" placeholder="e.g. Sudanese" className={inputClass} />
           </Field>
           <Field label="Current Location / City" required>
             <input
-              type="text"
+              name="location"
+                            type="text"
               required
               placeholder="e.g. Khartoum"
               className={inputClass}
@@ -143,7 +174,8 @@ export default function ApplicationForm() {
           </Field>
           <Field label="LinkedIn Profile URL">
             <input
-              type="url"
+              name="linkedin"
+                            type="url"
               placeholder="e.g. linkedin.com/in/username"
               className={inputClass}
             />
@@ -156,6 +188,7 @@ export default function ApplicationForm() {
           <Field label="Position Applying For" required>
             <div className="relative">
               <select
+                name="position"
                 required
                 defaultValue=""
                 className={`${inputClass} appearance-none pr-10 invalid:text-gray-400`}
@@ -176,7 +209,8 @@ export default function ApplicationForm() {
           </Field>
           <Field label="Years of Experience" required>
             <input
-              type="number"
+              name="experience"
+                            type="number"
               required
               min={0}
               placeholder="e.g. 5"
@@ -185,23 +219,25 @@ export default function ApplicationForm() {
           </Field>
           <Field label="Current Employer">
             <input
-              type="text"
+              name="employer"
+                            type="text"
               placeholder="Current company name"
               className={inputClass}
             />
           </Field>
           <Field label="Current Job Title">
-            <input type="text" placeholder="Your current role" className={inputClass} />
+            <input name="jobTitle" type="text" placeholder="Your current role" className={inputClass} />
           </Field>
           <Field label="Expected Salary Range">
             <input
-              type="text"
+              name="expectedSalary"
+                            type="text"
               placeholder="e.g. SDG 500,000 - 700,000"
               className={inputClass}
             />
           </Field>
           <Field label="Available Start Date">
-            <DateInput placeholder="Select date" />
+            <DateInput name="startDate" placeholder="Select date" />
           </Field>
         </div>
       </Card>
@@ -210,7 +246,8 @@ export default function ApplicationForm() {
         <div className="grid gap-6 md:grid-cols-2">
           <Field label="Highest Degree" required>
             <input
-              type="text"
+              name="degree"
+                            type="text"
               required
               placeholder="e.g. Master's in Civil Engineering"
               className={inputClass}
@@ -218,7 +255,8 @@ export default function ApplicationForm() {
           </Field>
           <Field label="University / Institution" required>
             <input
-              type="text"
+              name="university"
+                            type="text"
               required
               placeholder="Name of university"
               className={inputClass}
@@ -226,14 +264,15 @@ export default function ApplicationForm() {
           </Field>
           <Field label="Field of Study" required>
             <input
-              type="text"
+              name="fieldOfStudy"
+                            type="text"
               required
               placeholder="Major or specialization"
               className={inputClass}
             />
           </Field>
           <Field label="Graduation Year">
-            <input type="text" placeholder="YYYY" className={inputClass} />
+            <input name="graduationYear" type="text" placeholder="YYYY" className={inputClass} />
           </Field>
         </div>
       </Card>
@@ -241,7 +280,7 @@ export default function ApplicationForm() {
       <Card title="Documents Upload">
         <div className="space-y-8">
           <UploadZone id="cv" label="Upload CV / Resume" required />
-          <UploadZone id="cover-letter" label="Upload Cover Letter" />
+          <UploadZone id="coverLetter" label="Upload Cover Letter" />
           <UploadZone
             id="certificates"
             label="Upload Certificates (Academic / Professional)"
@@ -253,6 +292,7 @@ export default function ApplicationForm() {
         <div className="space-y-6">
           <Field label="Why do you want to join KSHC–Cube?">
             <textarea
+              name="motivation"
               rows={4}
               placeholder="Briefly describe your motivation..."
               className="w-full rounded-lg border border-gray-200 bg-white p-4 text-navy placeholder:text-gray-400 focus:border-orange focus:outline-none"
@@ -260,6 +300,7 @@ export default function ApplicationForm() {
           </Field>
           <Field label="Additional Notes or Comments">
             <textarea
+              name="notes"
               rows={4}
               placeholder="Any other details you'd like to share..."
               className="w-full rounded-lg border border-gray-200 bg-white p-4 text-navy placeholder:text-gray-400 focus:border-orange focus:outline-none"
@@ -287,12 +328,21 @@ export default function ApplicationForm() {
           </p>
         )}
 
+        {error && (
+          <p className="mt-6 font-semibold text-red-600" role="alert">
+            {error}
+          </p>
+        )}
+
         <div className="mt-8 flex flex-wrap gap-5">
           <button
             type="submit"
-            className="rounded-lg bg-gradient-to-b from-orange to-orange-mid px-8 py-4 text-lg font-bold text-white shadow-[0_8px_20px_rgba(232,135,30,0.4)] transition-transform hover:scale-[1.02]"
+            disabled={sending}
+            aria-busy={sending}
+            className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-b from-orange to-orange-mid px-8 py-4 text-lg font-bold text-white shadow-[0_8px_20px_rgba(232,135,30,0.4)] transition-transform hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:scale-100"
           >
-            Submit Application
+            {sending ? "Submitting…" : "Submit Application"}
+            {sending && <Loader2 size={20} className="animate-spin" aria-hidden />}
           </button>
           <button
             type="button"

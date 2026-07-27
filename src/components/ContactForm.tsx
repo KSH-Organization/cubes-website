@@ -1,22 +1,37 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
+import { Loader2 } from "lucide-react";
+import { submitEntry } from "@/lib/submit";
 
 const fieldClass =
   "w-full border-b border-gray-200 bg-transparent py-4 text-navy placeholder:text-gray-400 focus:border-orange focus:outline-none";
 
 export default function ContactForm() {
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (sending) return;
+    const form = e.currentTarget;
+    const data = Object.fromEntries(new FormData(form));
+    setSending(true);
+    setError(null);
+    const result = await submitEntry("contact-messages", data);
+    setSending(false);
+    if (result.ok) {
+      setSent(true);
+      form.reset();
+    } else {
+      // Keep what they typed so a failed send loses nothing.
+      setError(result.error);
+    }
+  }
 
   return (
-    <form
-      className="max-w-[630px]"
-      onSubmit={(e) => {
-        e.preventDefault();
-        setSent(true);
-        e.currentTarget.reset();
-      }}
-    >
+    <form className="max-w-[630px]" onSubmit={handleSubmit}>
       <input
         type="text"
         name="name"
@@ -46,10 +61,18 @@ export default function ContactForm() {
       />
       <button
         type="submit"
-        className="mt-9 rounded-lg bg-gradient-to-b from-orange to-orange-mid px-7 py-4 font-bold text-white shadow-[0_6px_16px_rgba(232,135,30,0.35)] transition-transform hover:scale-[1.03]"
+        disabled={sending}
+        aria-busy={sending}
+        className="mt-9 inline-flex items-center gap-2 rounded-lg bg-gradient-to-b from-orange to-orange-mid px-7 py-4 font-bold text-white shadow-[0_6px_16px_rgba(232,135,30,0.35)] transition-transform hover:scale-[1.03] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:scale-100"
       >
-        Leave us a Message
+        {sending ? "Sending…" : "Leave us a Message"}
+        {sending && <Loader2 size={18} className="animate-spin" aria-hidden />}
       </button>
+      {error && (
+        <p className="mt-5 font-semibold text-red-600" role="alert">
+          {error}
+        </p>
+      )}
       {sent && (
         <p className="mt-5 font-semibold text-green-700" role="status">
           Thank you! Your message has been received — our team will get back to
