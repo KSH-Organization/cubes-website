@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { LucideIcon } from "lucide-react";
+import { assetUrl } from "@/lib/asset-url";
 
 /**
  * An item's icon: whatever the admin uploaded for that row in the CMS, or the
@@ -38,6 +39,6 @@ export default function RowIcon({
     );
   }
   return (
-    <Image src={uploaded} alt={alt} width={size} height={size} className={imgClass} />
+    <Image src={assetUrl(uploaded)} alt={alt} width={size} height={size} className={imgClass} />
   );
 }

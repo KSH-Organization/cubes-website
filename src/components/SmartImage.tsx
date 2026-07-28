@@ -1,12 +1,20 @@
 import Image, { type ImageProps } from "next/image";
+import { assetUrl } from "@/lib/asset-url";
 
 type SmartImageProps = Omit<ImageProps, "src"> & { src: string };
 
 /**
- * next/image throws on `data:` URIs, which the CMS editor can produce when an
- * image is pasted straight into content. Every image on this site is CMS-first
- * with a bundled fallback, so any of them could be one — this wrapper drops to
- * a plain <img> in that case and keeps next/image everywhere else.
+ * Every image on this site goes through here, which makes it the one place to
+ * handle the two things a plain next/image can't:
+ *
+ *  - `data:` URIs — next/image throws on them, and the CMS editor produces one
+ *    when an image is pasted straight into content, so drop to a plain <img>.
+ *  - stale bundled assets — `assetUrl` appends a content hash, so replacing a
+ *    file in public/images changes its URL and the new image appears
+ *    immediately instead of waiting out the optimiser's cache TTL.
+ *
+ * CMS Media Library URLs pass through untouched: they are already immutable,
+ * since re-uploading an image mints a new id.
  */
 export default function SmartImage({ src, alt, ...rest }: SmartImageProps) {
   if (src.startsWith("data:")) {
@@ -23,5 +31,5 @@ export default function SmartImage({ src, alt, ...rest }: SmartImageProps) {
       />
     );
   }
-  return <Image src={src} alt={alt} {...rest} />;
+  return <Image src={assetUrl(src)} alt={alt} {...rest} />;
 }

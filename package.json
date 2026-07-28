@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "eslint",
     "build:manifest": "tsx scripts/build-manifest.ts",
-    "seed:cms": "tsx scripts/build-manifest.ts && node scripts/send-manifest.mjs"
+    "seed:cms": "tsx scripts/build-manifest.ts && node scripts/send-manifest.mjs",
+    "build:assets": "node scripts/build-asset-hashes.mjs",
+    "prebuild": "node scripts/build-asset-hashes.mjs"
   },
   "dependencies": {
     "lucide-react": "^1.27.0",

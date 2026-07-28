@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { Fragment } from "react";
+import { assetUrl } from "@/lib/asset-url";
 
 type HeroProps = {
   image: string;
@@ -54,7 +55,7 @@ export default function Hero({
   return (
     <section
       className={`relative flex ${heights[size]} items-center bg-cover bg-center`}
-      style={{ backgroundImage: `url(${image})` }}
+      style={{ backgroundImage: `url(${assetUrl(image)})` }}
     >
       <div className="absolute inset-0 bg-overlay/70" aria-hidden />
       <div className="relative mx-auto w-full max-w-[1200px] px-5 py-20 lg:px-0">
