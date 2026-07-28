@@ -36,17 +36,17 @@ export default function EventsCarousel({ events }: { events: EventRow[] }) {
         type="button"
         onClick={prev}
         aria-label="Previous event"
-        className="absolute top-1/2 -left-4 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-navy shadow-lg transition-colors hover:text-orange lg:-left-16"
+        className="absolute top-1/2 -start-4 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-navy shadow-lg transition-colors hover:text-orange lg:-start-16"
       >
-        <ChevronLeft size={22} />
+        <ChevronLeft size={22} className="rtl-flip" />
       </button>
       <button
         type="button"
         onClick={next}
         aria-label="Next event"
-        className="absolute top-1/2 -right-4 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-navy shadow-lg transition-colors hover:text-orange lg:-right-16"
+        className="absolute top-1/2 -end-4 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-navy shadow-lg transition-colors hover:text-orange lg:-end-16"
       >
-        <ChevronRight size={22} />
+        <ChevronRight size={22} className="rtl-flip" />
       </button>
 
       <div className="rounded-xl border border-gray-200 bg-white p-7 sm:p-10">

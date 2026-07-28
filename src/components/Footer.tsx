@@ -7,6 +7,7 @@ import {
   TwitterIcon,
 } from "@/components/SocialIcons";
 import RowIcon from "./RowIcon";
+import { localePath, type Locale } from "@/lib/site-config";
 
 type LinkRow = { key: string; label: string; href: string };
 type SocialRow = { key: string; label: string; href: string; icon?: string };
@@ -25,6 +26,7 @@ export type FooterProps = {
     social: SocialRow[];
   };
   copyright: string;
+  locale: Locale;
 };
 
 // Built-in social marks per row `key`; an uploaded icon wins.
@@ -34,8 +36,17 @@ const SOCIAL_ICONS: Record<string, typeof LinkedInIcon> = {
   twitter: TwitterIcon,
 };
 
-export default function Footer({ brand, footer, copyright }: FooterProps) {
+export default function Footer({
+  brand,
+  footer,
+  copyright,
+  locale,
+}: FooterProps) {
   const { company, services, social } = footer;
+  // CMS link rows store locale-independent paths (`/about`); prefix them so a
+  // visitor reading Arabic stays in Arabic when they follow one.
+  const localize = (href: string) =>
+    href.startsWith("/") ? localePath(locale, href) : href;
   return (
     <footer className="bg-navy text-white">
       <div className="mx-auto max-w-[1200px] px-5 pt-16 pb-10 lg:px-0">
@@ -102,7 +113,7 @@ export default function Footer({ brand, footer, copyright }: FooterProps) {
             <ul className="mt-5 space-y-4 text-[15px]">
               {company.map((l) => (
                 <li key={l.key}>
-                  <Link href={l.href} className="transition-colors hover:text-orange">
+                  <Link href={localize(l.href)} className="transition-colors hover:text-orange">
                     {l.label}
                   </Link>
                 </li>
@@ -117,7 +128,7 @@ export default function Footer({ brand, footer, copyright }: FooterProps) {
             <ul className="mt-5 space-y-4 text-[15px]">
               {services.map((l) => (
                 <li key={l.key}>
-                  <Link href={l.href} className="transition-colors hover:text-orange">
+                  <Link href={localize(l.href)} className="transition-colors hover:text-orange">
                     {l.label}
                   </Link>
                 </li>

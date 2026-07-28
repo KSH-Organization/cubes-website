@@ -1,22 +1,34 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import Hero from "@/components/Hero";
 import SectionHeading from "@/components/SectionHeading";
 import SmartImage from "@/components/SmartImage";
 import { getContent, list, text } from "@/lib/cms";
+import { isLocale, localePath } from "@/lib/site-config";
+import { metaFromContent, pageMetadata } from "@/lib/seo";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const c = await getContent();
-  return { title: text(c, "about.meta.title") };
+type PageParams = { params: Promise<{ locale: string }> };
+
+export async function generateMetadata({
+  params,
+}: PageParams): Promise<Metadata> {
+  const { locale } = await params;
+  if (!isLocale(locale)) return {};
+  const c = await getContent(locale);
+  const { title, description } = metaFromContent(c, "about");
+  return pageMetadata({ locale, path: "/about", title, description });
 }
 
 type StatRow = { key: string; value: string; label: string };
 type PillarRow = { key: string; title: string; body: string };
 type ProjectRow = { key: string; title: string; body: string; image?: string };
 
-export default async function AboutPage() {
-  const c = await getContent();
+export default async function AboutPage({ params }: PageParams) {
+  const { locale } = await params;
+  if (!isLocale(locale)) notFound();
+  const c = await getContent(locale);
   const stats = list<StatRow>(c, "about.overview.stats");
   const pillars = list<PillarRow>(c, "about.why.items");
   const projects = list<ProjectRow>(c, "about.projects");
@@ -66,7 +78,7 @@ export default async function AboutPage() {
                 height={840}
                 className="w-full rounded-2xl object-cover shadow-xl"
               />
-              <div className="absolute bottom-6 left-6 max-w-[320px] rounded-lg bg-white/95 p-4 shadow-lg backdrop-blur-sm">
+              <div className="absolute bottom-6 start-6 max-w-[320px] rounded-lg bg-white/95 p-4 shadow-lg backdrop-blur-sm">
                 <p className="text-xs font-bold tracking-wide text-orange-mid uppercase">
                   {text(c, "about.overview.badgeEyebrow")}
                 </p>
@@ -131,7 +143,7 @@ export default async function AboutPage() {
                   <h3 className="text-2xl font-extrabold text-navy">{p.title}</h3>
                   <p className="mt-3 leading-relaxed text-gray-500">{p.body}</p>
                   <Link
-                    href="/contact"
+                    href={localePath(locale, "/contact")}
                     className="mt-5 inline-flex items-center gap-2 font-bold text-orange-mid transition-colors hover:text-orange-dark"
                   >
                     {text(c, "about.projectsSection.viewDetails")} <ArrowRight size={18} />

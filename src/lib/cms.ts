@@ -17,6 +17,7 @@ import {
     vacancies,
 } from "@/content/collections";
 import { COLLECTIONS, PAGE_BASES } from "./cms-schema";
+import { DEFAULT_LOCALE } from "./site-config";
 
 const CMS_API_URL = (
     process.env.CMS_API_URL ?? "http://localhost:3000/api"
@@ -28,7 +29,7 @@ const FETCH_TIMEOUT_MS = 3000;
 // change within seconds; raise it for a high-traffic deploy.
 const REVALIDATE_SECONDS = Number(process.env.CMS_REVALIDATE_SECONDS ?? "5");
 
-type Json = Record<string, unknown>;
+export type Json = Record<string, unknown>;
 
 const isPlainObject = (v: unknown): v is Json =>
     typeof v === "object" && v !== null && !Array.isArray(v);
@@ -54,9 +55,15 @@ function setPath(target: Json, path: string, value: unknown): void {
     node[parts[parts.length - 1]] = value;
 }
 
-async function fetchJson(path: string): Promise<Json | null> {
+async function fetchJson(path: string, locale?: string): Promise<Json | null> {
+    // The CMS keys translations by locale; asking for the default locale is the
+    // same as asking for no locale at all, so the query is omitted there.
+    const url =
+        locale && locale !== DEFAULT_LOCALE
+            ? `${CMS_API_URL}${path}?locale=${encodeURIComponent(locale)}`
+            : `${CMS_API_URL}${path}`;
     try {
-        const res = await fetch(`${CMS_API_URL}${path}`, {
+        const res = await fetch(url, {
             signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
             next: { revalidate: REVALIDATE_SECONDS },
         });
@@ -70,8 +77,11 @@ async function fetchJson(path: string): Promise<Json | null> {
 
 type CmsBlock = { id?: unknown; type?: unknown; value?: unknown; items?: unknown };
 
-async function fetchPageBlocks(slug: string): Promise<CmsBlock[] | null> {
-    const page = await fetchJson(`/pages/slug/${slug}`);
+async function fetchPageBlocks(
+    slug: string,
+    locale?: string,
+): Promise<CmsBlock[] | null> {
+    const page = await fetchJson(`/pages/slug/${slug}`, locale);
     if (!page) return null;
     const sections = Array.isArray(page.sections) ? page.sections : [];
     const blocks: CmsBlock[] = [];
@@ -83,8 +93,11 @@ async function fetchPageBlocks(slug: string): Promise<CmsBlock[] | null> {
     return blocks;
 }
 
-async function fetchCollectionRows(slug: string): Promise<Json[] | null> {
-    const collection = await fetchJson(`/collections/slug/${slug}`);
+async function fetchCollectionRows(
+    slug: string,
+    locale?: string,
+): Promise<Json[] | null> {
+    const collection = await fetchJson(`/collections/slug/${slug}`, locale);
     if (!collection) return null;
     return Array.isArray(collection.items) ? (collection.items as Json[]) : null;
 }
@@ -97,10 +110,10 @@ const nonEmptyString = (v: unknown): string | null =>
  * `deepMerge` falls back to local content for anything the CMS leaves blank —
  * which is exactly how an un-uploaded image keeps its bundled asset.
  */
-async function fetchCmsOverrides(): Promise<Json | null> {
+async function fetchCmsOverrides(locale?: string): Promise<Json | null> {
     const [pageBlockLists, ...collectionRowLists] = await Promise.all([
-        Promise.all(PAGE_BASES.map((base) => fetchPageBlocks(base))),
-        ...COLLECTIONS.map((c) => fetchCollectionRows(c.slug)),
+        Promise.all(PAGE_BASES.map((base) => fetchPageBlocks(base, locale))),
+        ...COLLECTIONS.map((c) => fetchCollectionRows(c.slug, locale)),
     ]);
 
     const tree: Json = {};
@@ -157,10 +170,30 @@ export function deepMerge<T extends Json>(base: T, override: Json | null | undef
 /**
  * The site's content for this request: local copy with CMS values overlaid.
  * Every page/component calls this instead of importing `content` directly.
+ *
+ * For a non-default locale the merge is three-deep:
+ *
+ *   local English  →  CMS English  →  CMS <locale>
+ *
+ * so an Arabic page shows Arabic wherever a translation exists and English
+ * everywhere it doesn't, key by key. That is deliberate: a half-translated site
+ * still renders complete pages, and each string switches to Arabic the moment
+ * an editor fills it in — no code change, no empty page in between.
+ *
+ * Note this means Arabic pages are partly English until the CMS is populated.
+ * They are still indexable and correct; `hreflang` continues to advertise them
+ * as the Arabic alternates.
  */
-export async function getContent(): Promise<Json> {
-    const overrides = await fetchCmsOverrides();
-    return deepMerge(localTree(), overrides);
+export async function getContent(locale: string = DEFAULT_LOCALE): Promise<Json> {
+    const base = localTree();
+    if (locale === DEFAULT_LOCALE) {
+        return deepMerge(base, await fetchCmsOverrides());
+    }
+    const [defaultOverrides, localeOverrides] = await Promise.all([
+        fetchCmsOverrides(),
+        fetchCmsOverrides(locale),
+    ]);
+    return deepMerge(deepMerge(base, defaultOverrides), localeOverrides);
 }
 
 /** Reads a dot-path out of the merged tree, e.g. `home.hero.title`. */

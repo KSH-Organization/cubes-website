@@ -61,7 +61,11 @@ export const content = {
     },
 
     home: {
-        meta: { title: "KSHC Construction & Real Estate" },
+        meta: {
+            title: "KSHC Cube | Construction & Real Estate in Sudan",
+            description:
+                "KSHC Cube delivers construction, project management and real estate development across Sudan — precision planning, sustainable execution, on time and on budget.",
+        },
         hero: {
             badge: "Our Expertise",
             title: "Innovative Solutions for Sudan's Urban Landscape.",
@@ -235,7 +239,11 @@ export const content = {
     },
 
     about: {
-        meta: { title: "About | KSHC Construction & Real Estate" },
+        meta: {
+            title: "About Us | KSHC Cube Construction Sudan",
+            description:
+                "15+ years building Sudan's infrastructure. Learn how KSHC Cube combines precision engineering, sustainable design and international project management standards.",
+        },
         hero: {
             badge: "Our Expertise",
             title: "Building the future, one site at a time.",
@@ -291,7 +299,11 @@ export const content = {
     },
 
     people: {
-        meta: { title: "People | KSHC Construction & Real Estate" },
+        meta: {
+            title: "Our Departments & Team | KSHC Cube",
+            description:
+                "Meet the specialised departments behind every KSHC Cube project — PMO, quality, real estate and customer service teams delivering precision and long-term value.",
+        },
         hero: {
             badge: "Our Expertise",
             title: "Departments That Deliver, People Who Inspire",
@@ -307,7 +319,11 @@ export const content = {
     },
 
     services: {
-        meta: { title: "Services | KSHC Construction & Real Estate" },
+        meta: {
+            title: "Project Management & Real Estate Services | KSHC Cube",
+            description:
+                "End-to-end project management, real estate development, PMO support and digital transformation services delivered to international standards across Sudan.",
+        },
         hero: {
             badge: "EXPERT SOLUTIONS",
             title: "Our Services",
@@ -462,7 +478,11 @@ export const content = {
     },
 
     news: {
-        meta: { title: "News & Events | KSHC Construction & Real Estate" },
+        meta: {
+            title: "News & Events | KSHC Cube Sudan",
+            description:
+                "Project milestones, corporate announcements and industry events from KSHC Cube — updates on Sudan's construction and real estate development landscape.",
+        },
         hero: {
             badge: "News & Events",
             title: "Stay Updated with KSHC-Cube",
@@ -480,7 +500,11 @@ export const content = {
     },
 
     career: {
-        meta: { title: "Career | KSHC Construction & Real Estate" },
+        meta: {
+            title: "Careers & Job Vacancies | KSHC Cube Sudan",
+            description:
+                "Build your career with KSHC Cube. Explore open engineering, project management and real estate roles in Sudan, with training and advancement opportunities.",
+        },
         hero: {
             badge: "CAREER OPPORTUNITIES",
             title: "Join KSHC–Cube",
@@ -557,7 +581,11 @@ export const content = {
             button: "Submit Application",
         },
         apply: {
-            meta: { title: "Apply | KSHC Construction & Real Estate" },
+            meta: {
+                title: "Submit Your Application | KSHC Cube Careers",
+                description:
+                    "Apply for a role at KSHC Cube. Complete the online application form with your CV, cover letter and qualifications to join our team in Sudan.",
+            },
             breadcrumbParent: "Careers",
             breadcrumbCurrent: "Apply",
             title: "Job Application Form",
@@ -566,7 +594,11 @@ export const content = {
     },
 
     contact: {
-        meta: { title: "Contact Us | KSHC Construction & Real Estate" },
+        meta: {
+            title: "Contact Us | KSHC Cube Construction & Real Estate",
+            description:
+                "Get in touch with KSHC Cube for construction, project management or real estate enquiries and partnerships in Sudan. Our team responds promptly.",
+        },
         hero: {
             badge: "Contact Us",
             title: "Get in Touch With Us",

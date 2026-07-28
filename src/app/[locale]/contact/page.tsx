@@ -3,14 +3,24 @@ import Hero from "@/components/Hero";
 import SectionHeading from "@/components/SectionHeading";
 import ContactForm from "@/components/ContactForm";
 import { getContent, text } from "@/lib/cms";
+import { isLocale } from "@/lib/site-config";
+import { metaFromContent, pageMetadata } from "@/lib/seo";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const c = await getContent();
-  return { title: text(c, "contact.meta.title") };
+type PageParams = { params: Promise<{ locale: string }> };
+
+export async function generateMetadata({
+  params,
+}: PageParams): Promise<Metadata> {
+  const { locale } = await params;
+  if (!isLocale(locale)) return {};
+  const c = await getContent(locale);
+  const { title, description } = metaFromContent(c, "contact");
+  return pageMetadata({ locale, path: "/contact", title, description });
 }
 
-export default async function ContactPage() {
-  const c = await getContent();
+export default async function ContactPage({ params }: PageParams) {
+  const { locale } = await params;
+  const c = await getContent(locale);
 
   return (
     <>

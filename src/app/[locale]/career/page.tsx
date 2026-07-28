@@ -1,13 +1,25 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import Link from "next/link";
 import { CalendarDays, CheckCircle2, MapPin } from "lucide-react";
 import Hero from "@/components/Hero";
 import SectionHeading from "@/components/SectionHeading";
 import { getContent, list, text } from "@/lib/cms";
+import JsonLd from "@/components/JsonLd";
+import { isLocale, localePath } from "@/lib/site-config";
+import { jobPostingSchema } from "@/lib/structured-data";
+import { metaFromContent, pageMetadata } from "@/lib/seo";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const c = await getContent();
-  return { title: text(c, "career.meta.title") };
+type PageParams = { params: Promise<{ locale: string }> };
+
+export async function generateMetadata({
+  params,
+}: PageParams): Promise<Metadata> {
+  const { locale } = await params;
+  if (!isLocale(locale)) return {};
+  const c = await getContent(locale);
+  const { title, description } = metaFromContent(c, "career");
+  return pageMetadata({ locale, path: "/career", title, description });
 }
 
 type CultureRow = { key: string; title: string; body: string };
@@ -20,15 +32,33 @@ type VacancyRow = {
   qualifications: string;
 };
 
-export default async function CareerPage() {
-  const c = await getContent();
+export default async function CareerPage({ params }: PageParams) {
+  const { locale } = await params;
+  if (!isLocale(locale)) notFound();
+  const c = await getContent(locale);
   const culture = list<CultureRow>(c, "career.culture.items");
   const whyUs = list<BulletRow>(c, "career.whyUs.items");
   const weOffer = list<BulletRow>(c, "career.weOffer.items");
   const vacancies = list<VacancyRow>(c, "career.vacancies");
+  const brandName = `${text(c, "globals.brand.name")} ${text(
+    c,
+    "globals.brand.tagline",
+  )}`.trim();
 
   return (
     <>
+      {/* One JobPosting node per opening — what makes these eligible to appear
+          in Google Jobs rather than only in ordinary web results. */}
+      {vacancies.map((v) => (
+        <JsonLd
+          key={v.key}
+          data={jobPostingSchema(v, {
+            locale,
+            orgName: brandName,
+            logo: text(c, "globals.brand.logo"),
+          })}
+        />
+      ))}
       <Hero
         image={text(c, "career.hero.image")}
         badge={text(c, "career.hero.badge")}
@@ -132,7 +162,7 @@ export default async function CareerPage() {
                   {v.qualifications}
                 </p>
                 <Link
-                  href="/career/apply"
+                  href={localePath(locale, "/career/apply")}
                   className="mt-7 inline-block rounded-full bg-gradient-to-b from-orange to-orange-mid px-7 py-3.5 font-bold text-white shadow-[0_6px_16px_rgba(232,135,30,0.35)] transition-transform hover:scale-[1.03]"
                 >
                   {text(c, "career.vacanciesSection.applyButton")}
@@ -166,7 +196,7 @@ export default async function CareerPage() {
             {text(c, "career.howToApply.note")}
           </p>
           <Link
-            href="/career/apply"
+            href={localePath(locale, "/career/apply")}
             className="mt-8 inline-block rounded-lg bg-navy px-8 py-4 text-lg font-bold text-white shadow-lg transition-transform hover:scale-[1.03]"
           >
             {text(c, "career.howToApply.button")}

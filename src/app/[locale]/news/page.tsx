@@ -1,14 +1,24 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import Link from "next/link";
 import Hero from "@/components/Hero";
 import SectionHeading from "@/components/SectionHeading";
 import NewsTabs from "@/components/NewsTabs";
 import EventsCarousel from "@/components/EventsCarousel";
 import { getContent, list, text } from "@/lib/cms";
+import { isLocale, localePath } from "@/lib/site-config";
+import { metaFromContent, pageMetadata } from "@/lib/seo";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const c = await getContent();
-  return { title: text(c, "news.meta.title") };
+type PageParams = { params: Promise<{ locale: string }> };
+
+export async function generateMetadata({
+  params,
+}: PageParams): Promise<Metadata> {
+  const { locale } = await params;
+  if (!isLocale(locale)) return {};
+  const c = await getContent(locale);
+  const { title, description } = metaFromContent(c, "news");
+  return pageMetadata({ locale, path: "/news", title, description });
 }
 
 type TabRow = {
@@ -35,8 +45,10 @@ type EventRow = {
   image4?: string;
 };
 
-export default async function NewsPage() {
-  const c = await getContent();
+export default async function NewsPage({ params }: PageParams) {
+  const { locale } = await params;
+  if (!isLocale(locale)) notFound();
+  const c = await getContent(locale);
   const tabs = list<TabRow>(c, "newsTabs.items");
   const events = list<EventRow>(c, "news.events");
 
@@ -76,7 +88,7 @@ export default async function NewsPage() {
             {text(c, "news.cta.body")}
           </p>
           <Link
-            href="/contact"
+            href={localePath(locale, "/contact")}
             className="mt-8 inline-block rounded-lg bg-navy px-7 py-4 font-bold text-white shadow-lg transition-transform hover:scale-[1.03]"
           >
             {text(c, "news.cta.button")}

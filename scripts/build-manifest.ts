@@ -215,8 +215,14 @@ const forms = [
 ];
 
 const manifest = {
-    // Single-language site: one default locale keeps the CMS consistent.
-    locales: [{ code: "en", name: "English", isDefault: true }],
+    // Bilingual: English is the source of truth and the default, Arabic is
+    // translated per-block in the CMS. Any block an editor leaves blank in
+    // Arabic falls back to its English value at render time (see src/lib/cms.ts),
+    // so a partly-translated site still renders complete pages.
+    locales: [
+        { code: "en", name: "English", isDefault: true },
+        { code: "ar", name: "العربية", isDefault: false, direction: "rtl" },
+    ],
     pages,
     collections,
     forms,

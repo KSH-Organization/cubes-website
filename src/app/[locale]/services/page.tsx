@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import Link from "next/link";
 import {
   Archive,
@@ -18,10 +19,19 @@ import Hero from "@/components/Hero";
 import RowIcon from "@/components/RowIcon";
 import SectionHeading from "@/components/SectionHeading";
 import { getContent, list, text } from "@/lib/cms";
+import { isLocale, localePath } from "@/lib/site-config";
+import { metaFromContent, pageMetadata } from "@/lib/seo";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const c = await getContent();
-  return { title: text(c, "services.meta.title") };
+type PageParams = { params: Promise<{ locale: string }> };
+
+export async function generateMetadata({
+  params,
+}: PageParams): Promise<Metadata> {
+  const { locale } = await params;
+  if (!isLocale(locale)) return {};
+  const c = await getContent(locale);
+  const { title, description } = metaFromContent(c, "services");
+  return pageMetadata({ locale, path: "/services", title, description });
 }
 
 // Built-in icons per row `key`; an icon uploaded in the CMS for that row wins.
@@ -63,8 +73,10 @@ function ChecklistGrid({ items }: { items: CheckRow[] }) {
   );
 }
 
-export default async function ServicesPage() {
-  const c = await getContent();
+export default async function ServicesPage({ params }: PageParams) {
+  const { locale } = await params;
+  if (!isLocale(locale)) notFound();
+  const c = await getContent(locale);
   const offers = list<OfferRow>(c, "services.offers.items");
   const pmItems = list<ItemRow>(c, "services.pm.items");
   const reItems = list<ItemRow>(c, "services.re.items");
@@ -192,7 +204,7 @@ export default async function ServicesPage() {
             {text(c, "services.cta.title")}
           </h2>
           <Link
-            href="/contact"
+            href={localePath(locale, "/contact")}
             className="mt-10 inline-block rounded-lg bg-navy px-8 py-4 text-lg font-bold text-white shadow-lg transition-transform hover:scale-[1.03]"
           >
             {text(c, "services.cta.button")}

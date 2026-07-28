@@ -43,7 +43,7 @@ function DateInput({ name, placeholder }: { name: string; placeholder: string })
       <input type="text" name={name} placeholder={placeholder} className={inputClass} />
       <CalendarDays
         size={18}
-        className="pointer-events-none absolute top-1/2 right-4 -translate-y-1/2 text-gray-400"
+        className="pointer-events-none absolute top-1/2 end-4 -translate-y-1/2 text-gray-400"
       />
     </div>
   );
@@ -191,7 +191,7 @@ export default function ApplicationForm() {
                 name="position"
                 required
                 defaultValue=""
-                className={`${inputClass} appearance-none pr-10 invalid:text-gray-400`}
+                className={`${inputClass} appearance-none pe-10 invalid:text-gray-400`}
               >
                 <option value="" disabled>
                   Select a position
@@ -203,7 +203,7 @@ export default function ApplicationForm() {
               </select>
               <ChevronDown
                 size={18}
-                className="pointer-events-none absolute top-1/2 right-4 -translate-y-1/2 text-gray-500"
+                className="pointer-events-none absolute top-1/2 end-4 -translate-y-1/2 text-gray-500"
               />
             </div>
           </Field>

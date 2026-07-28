@@ -12,7 +12,9 @@ import Hero from "@/components/Hero";
 import RowIcon from "@/components/RowIcon";
 import SectionHeading from "@/components/SectionHeading";
 import SmartImage from "@/components/SmartImage";
+import { notFound } from "next/navigation";
 import { getContent, list, text } from "@/lib/cms";
+import { isLocale } from "@/lib/site-config";
 
 // Built-in icons, matched to each row by its `key`. An icon uploaded in the
 // CMS for that row wins; these are what renders until then.
@@ -45,7 +47,7 @@ function NumberedCard({
     <div className="relative pt-7">
       <span
         aria-hidden
-        className="absolute top-0 right-4 z-10 text-[40px] leading-none font-extrabold text-orange-mid drop-shadow-[2px_3px_0_rgba(7,54,77,0.15)]"
+        className="absolute top-0 end-4 z-10 text-[40px] leading-none font-extrabold text-orange-mid drop-shadow-[2px_3px_0_rgba(7,54,77,0.15)]"
       >
         {number}
       </span>
@@ -66,8 +68,14 @@ function NumberedCard({
   );
 }
 
-export default async function HomePage() {
-  const c = await getContent();
+export default async function HomePage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  if (!isLocale(locale)) notFound();
+  const c = await getContent(locale);
 
   const points = list<PointRow>(c, "home.whoWeAre.points");
   const objectives = list<ObjectiveRow>(c, "home.objectives.items");

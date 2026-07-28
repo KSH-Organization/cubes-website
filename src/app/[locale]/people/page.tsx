@@ -3,16 +3,26 @@ import Hero from "@/components/Hero";
 import SectionHeading from "@/components/SectionHeading";
 import SmartImage from "@/components/SmartImage";
 import { getContent, list, text } from "@/lib/cms";
+import { isLocale } from "@/lib/site-config";
+import { metaFromContent, pageMetadata } from "@/lib/seo";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const c = await getContent();
-  return { title: text(c, "people.meta.title") };
+type PageParams = { params: Promise<{ locale: string }> };
+
+export async function generateMetadata({
+  params,
+}: PageParams): Promise<Metadata> {
+  const { locale } = await params;
+  if (!isLocale(locale)) return {};
+  const c = await getContent(locale);
+  const { title, description } = metaFromContent(c, "people");
+  return pageMetadata({ locale, path: "/people", title, description });
 }
 
 type DepartmentRow = { key: string; title: string; body: string; image?: string };
 
-export default async function PeoplePage() {
-  const c = await getContent();
+export default async function PeoplePage({ params }: PageParams) {
+  const { locale } = await params;
+  const c = await getContent(locale);
   const departments = list<DepartmentRow>(c, "people.departments");
 
   return (
