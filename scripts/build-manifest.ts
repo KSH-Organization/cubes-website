@@ -283,7 +283,9 @@ const manifest = {
     // so a partly-translated site still renders complete pages.
     locales: [
         { code: "en", name: "English", isDefault: true },
-        { code: "ar", name: "العربية", isDefault: false, direction: "rtl" },
+        // Text direction is a rendering concern the site owns (HTML_DIR in
+        // site-config), not something the CMS models — sending it is rejected.
+        { code: "ar", name: "العربية", isDefault: false },
     ],
     pages,
     collections,
