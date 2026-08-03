@@ -98,7 +98,16 @@ function UploadZone({
 /** Every visible string, so the form can be translated from the content tree. */
 export type FormStrings = Record<string, string>;
 
-export default function ApplicationForm({ t }: { t: FormStrings }) {
+/** One open vacancy, as stored in the `vacancies` collection. */
+export type JobOption = { key: string; title: string };
+
+export default function ApplicationForm({
+  t,
+  jobs,
+}: {
+  t: FormStrings;
+  jobs: JobOption[];
+}) {
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -203,10 +212,14 @@ export default function ApplicationForm({ t }: { t: FormStrings }) {
                 <option value="" disabled>
                   {t.positionPlaceholder}
                 </option>
-                <option>Senior Structural Engineer</option>
-                <option>Project Manager – Infrastructure</option>
-                <option>QA/QC Inspector</option>
-                <option>{t.positionOther}</option>
+                {/* Real openings, so the value matches a vacancy and is
+                    already translated for the current locale. */}
+                {jobs.map((j) => (
+                  <option key={j.key} value={j.key}>
+                    {j.title}
+                  </option>
+                ))}
+                <option value="other">{t.positionOther}</option>
               </select>
               <ChevronDown
                 size={18}

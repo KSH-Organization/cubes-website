@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import ApplicationForm from "@/components/ApplicationForm";
 import JsonLd from "@/components/JsonLd";
-import { getContent, pick, text } from "@/lib/cms";
+import { getContent, list, pick, text } from "@/lib/cms";
 import { isLocale, localePath } from "@/lib/site-config";
 import { metaFromContent, pageMetadata } from "@/lib/seo";
 import { breadcrumbSchema } from "@/lib/structured-data";
@@ -68,6 +68,7 @@ export default async function ApplyPage({ params }: PageParams) {
         <div className="mx-auto max-w-[1040px] px-5 lg:px-0">
           <ApplicationForm
             t={(pick(c, "career.apply.form") ?? {}) as Record<string, string>}
+            jobs={list<{ key: string; title: string }>(c, "career.vacancies")}
           />
         </div>
       </section>
