@@ -53,10 +53,14 @@ function UploadZone({
   label,
   required,
   id,
+  hint,
+  types,
 }: {
   label: string;
   required?: boolean;
   id: string;
+  hint: string;
+  types: string;
 }) {
   const [fileName, setFileName] = useState<string | null>(null);
   return (
@@ -73,10 +77,10 @@ function UploadZone({
           <UploadCloud size={22} className="text-orange-mid" />
         </span>
         <span className="mt-4 font-bold text-navy">
-          {fileName ?? "Click to upload or drag and drop"}
+          {fileName ?? hint}
         </span>
         <span className="mt-1 text-[13px] text-gray-500">
-          PDF, DOC, or DOCX (Max. 10MB)
+          {types}
         </span>
         <input
           id={id}
@@ -91,7 +95,10 @@ function UploadZone({
   );
 }
 
-export default function ApplicationForm() {
+/** Every visible string, so the form can be translated from the content tree. */
+export type FormStrings = Record<string, string>;
+
+export default function ApplicationForm({ t }: { t: FormStrings }) {
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -128,64 +135,64 @@ export default function ApplicationForm() {
 
   return (
     <form className="space-y-10" onSubmit={handleSubmit}>
-      <Card title="Personal Information">
+      <Card title={t.sectionPersonal}>
         <div className="grid gap-6 md:grid-cols-2">
-          <Field label="Full Name" required>
+          <Field label={t.fullName} required>
             <input
               name="fullName"
                             type="text"
               required
-              placeholder="e.g. Ahmed Mohammed"
+              placeholder={t.fullNamePlaceholder}
               className={inputClass}
             />
           </Field>
-          <Field label="Email Address" required>
+          <Field label={t.email} required>
             <input
               name="email"
                             type="email"
               required
-              placeholder="name@example.com"
+              placeholder={t.emailPlaceholder}
               className={inputClass}
             />
           </Field>
-          <Field label="Phone Number" required>
+          <Field label={t.phone} required>
             <input
               name="phone"
                             type="tel"
               required
-              placeholder="+249 XXX XXX XXX"
+              placeholder={t.phonePlaceholder}
               className={inputClass}
             />
           </Field>
-          <Field label="Date of Birth">
-            <DateInput name="dateOfBirth" placeholder="DD / MM / YYYY" />
+          <Field label={t.dateOfBirth}>
+            <DateInput name="dateOfBirth" placeholder={t.datePlaceholder} />
           </Field>
-          <Field label="Nationality">
-            <input name="nationality" type="text" placeholder="e.g. Sudanese" className={inputClass} />
+          <Field label={t.nationality}>
+            <input name="nationality" type="text" placeholder={t.nationalityPlaceholder} className={inputClass} />
           </Field>
-          <Field label="Current Location / City" required>
+          <Field label={t.location} required>
             <input
               name="location"
                             type="text"
               required
-              placeholder="e.g. Khartoum"
+              placeholder={t.locationPlaceholder}
               className={inputClass}
             />
           </Field>
-          <Field label="LinkedIn Profile URL">
+          <Field label={t.linkedin}>
             <input
               name="linkedin"
                             type="url"
-              placeholder="e.g. linkedin.com/in/username"
+              placeholder={t.linkedinPlaceholder}
               className={inputClass}
             />
           </Field>
         </div>
       </Card>
 
-      <Card title="Professional Information">
+      <Card title={t.sectionProfessional}>
         <div className="grid gap-6 md:grid-cols-2">
-          <Field label="Position Applying For" required>
+          <Field label={t.position} required>
             <div className="relative">
               <select
                 name="position"
@@ -194,12 +201,12 @@ export default function ApplicationForm() {
                 className={`${inputClass} appearance-none pe-10 invalid:text-gray-400`}
               >
                 <option value="" disabled>
-                  Select a position
+                  {t.positionPlaceholder}
                 </option>
                 <option>Senior Structural Engineer</option>
                 <option>Project Manager – Infrastructure</option>
                 <option>QA/QC Inspector</option>
-                <option>Other</option>
+                <option>{t.positionOther}</option>
               </select>
               <ChevronDown
                 size={18}
@@ -207,102 +214,115 @@ export default function ApplicationForm() {
               />
             </div>
           </Field>
-          <Field label="Years of Experience" required>
+          <Field label={t.experience} required>
             <input
               name="experience"
                             type="number"
               required
               min={0}
-              placeholder="e.g. 5"
+              placeholder={t.experiencePlaceholder}
               className={inputClass}
             />
           </Field>
-          <Field label="Current Employer">
+          <Field label={t.employer}>
             <input
               name="employer"
                             type="text"
-              placeholder="Current company name"
+              placeholder={t.employerPlaceholder}
               className={inputClass}
             />
           </Field>
-          <Field label="Current Job Title">
-            <input name="jobTitle" type="text" placeholder="Your current role" className={inputClass} />
+          <Field label={t.jobTitle}>
+            <input name="jobTitle" type="text" placeholder={t.jobTitlePlaceholder} className={inputClass} />
           </Field>
-          <Field label="Expected Salary Range">
+          <Field label={t.expectedSalary}>
             <input
               name="expectedSalary"
                             type="text"
-              placeholder="e.g. SDG 500,000 - 700,000"
+              placeholder={t.salaryPlaceholder}
               className={inputClass}
             />
           </Field>
-          <Field label="Available Start Date">
-            <DateInput name="startDate" placeholder="Select date" />
+          <Field label={t.startDate}>
+            <DateInput name="startDate" placeholder={t.startDatePlaceholder} />
           </Field>
         </div>
       </Card>
 
-      <Card title="Education">
+      <Card title={t.sectionEducation}>
         <div className="grid gap-6 md:grid-cols-2">
-          <Field label="Highest Degree" required>
+          <Field label={t.degree} required>
             <input
               name="degree"
                             type="text"
               required
-              placeholder="e.g. Master's in Civil Engineering"
+              placeholder={t.degreePlaceholder}
               className={inputClass}
             />
           </Field>
-          <Field label="University / Institution" required>
+          <Field label={t.university} required>
             <input
               name="university"
                             type="text"
               required
-              placeholder="Name of university"
+              placeholder={t.universityPlaceholder}
               className={inputClass}
             />
           </Field>
-          <Field label="Field of Study" required>
+          <Field label={t.fieldOfStudy} required>
             <input
               name="fieldOfStudy"
                             type="text"
               required
-              placeholder="Major or specialization"
+              placeholder={t.fieldPlaceholder}
               className={inputClass}
             />
           </Field>
-          <Field label="Graduation Year">
-            <input name="graduationYear" type="text" placeholder="YYYY" className={inputClass} />
+          <Field label={t.graduationYear}>
+            <input name="graduationYear" type="text" placeholder={t.yearPlaceholder} className={inputClass} />
           </Field>
         </div>
       </Card>
 
-      <Card title="Documents Upload">
+      <Card title={t.sectionDocuments}>
         <div className="space-y-8">
-          <UploadZone id="cv" label="Upload CV / Resume" required />
-          <UploadZone id="coverLetter" label="Upload Cover Letter" />
+          <UploadZone
+            id="cv"
+            label={t.uploadCv}
+            hint={t.uploadHint}
+            types={t.uploadTypes}
+            required
+          />
+          <UploadZone
+            id="coverLetter"
+            label={t.uploadCover}
+            hint={t.uploadHint}
+            types={t.uploadTypes}
+          />
           <UploadZone
             id="certificates"
-            label="Upload Certificates (Academic / Professional)"
+            label={t.uploadCertificates}
+            hint={t.uploadHint}
+            types={t.uploadTypes}
           />
         </div>
       </Card>
 
-      <Card title="Additional Information">
+      <Card title={t.sectionAdditional}>
         <div className="space-y-6">
-          <Field label="Why do you want to join KSHC–Cube?">
+          <Field label={t.motivation}>
             <textarea
               name="motivation"
               rows={4}
-              placeholder="Briefly describe your motivation..."
+              placeholder={t.motivationPlaceholder}
               className="w-full rounded-lg border border-gray-200 bg-white p-4 text-navy placeholder:text-gray-400 focus:border-orange focus:outline-none"
             />
           </Field>
-          <Field label="Additional Notes or Comments">
+          <Field label={t.notes}>
             <textarea
               name="notes"
               rows={4}
-              placeholder="Any other details you'd like to share..."
+              placeholder={t.notesPlaceholder}
               className="w-full rounded-lg border border-gray-200 bg-white p-4 text-navy placeholder:text-gray-400 focus:border-orange focus:outline-none"
             />
           </Field>
@@ -317,14 +337,13 @@ export default function ApplicationForm() {
             className="h-5 w-5 rounded border-gray-300 accent-orange-mid"
           />
           <span className="font-bold text-navy">
-            I confirm that the information provided is accurate and complete
+            {t.consent}
           </span>
         </label>
 
         {submitted && (
           <p className="mt-6 font-semibold text-green-700" role="status">
-            Application received — thank you! Our recruitment team will contact
-            you after reviewing your profile.
+            {t.success}
           </p>
         )}
 
@@ -341,14 +360,14 @@ export default function ApplicationForm() {
             aria-busy={sending}
             className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-b from-orange to-orange-mid px-8 py-4 text-lg font-bold text-white shadow-[0_8px_20px_rgba(232,135,30,0.4)] transition-transform hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:scale-100"
           >
-            {sending ? "Submitting…" : "Submit Application"}
+            {sending ? t.submitting : t.submit}
             {sending && <Loader2 size={20} className="animate-spin" aria-hidden />}
           </button>
           <button
             type="button"
             className="rounded-lg border-2 border-navy px-8 py-4 text-lg font-bold text-navy transition-colors hover:bg-navy hover:text-white"
           >
-            Save as Draft
+            {t.draft}
           </button>
         </div>
       </div>

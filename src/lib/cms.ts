@@ -10,12 +10,19 @@
  * and its shape are never exposed to the browser.
  */
 import { content } from "@/content/site";
+import { contentAr } from "@/content/site.ar";
 import {
     departments,
     events,
     projects,
     vacancies,
 } from "@/content/collections";
+import {
+    departmentsAr,
+    eventsAr,
+    projectsAr,
+    vacanciesAr,
+} from "@/content/collections.ar";
 import { COLLECTIONS, PAGE_BASES } from "./cms-schema";
 import { DEFAULT_LOCALE } from "./site-config";
 
@@ -34,14 +41,64 @@ export type Json = Record<string, unknown>;
 const isPlainObject = (v: unknown): v is Json =>
     typeof v === "object" && v !== null && !Array.isArray(v);
 
-/** The local content tree, with collections injected at their paths. */
-function localTree(): Json {
+/**
+ * Overlays a translation tree on a base tree.
+ *
+ * Unlike `deepMerge`, arrays of keyed rows are merged row by row on `key`
+ * rather than replaced wholesale: a translation only carries the columns it
+ * translates, so replacing would drop everything else on the row (a footer
+ * link's `href`, a card's `image`) and render a broken page.
+ *
+ * CMS overrides deliberately keep the replace-wholesale behaviour — there an
+ * editor may have removed rows, and the CMS list is authoritative.
+ */
+function overlayTranslations(base: Json, tr: Json): Json {
+    const out: Json = { ...base };
+    for (const [key, value] of Object.entries(tr)) {
+        if (value === undefined || value === null) continue;
+        const current = out[key];
+        if (Array.isArray(current) && Array.isArray(value)) {
+            const byKey = new Map(
+                (value as Json[])
+                    .filter(isPlainObject)
+                    .map((r) => [String(r.key), r]),
+            );
+            out[key] = (current as Json[]).map((row) =>
+                isPlainObject(row) ? { ...row, ...(byKey.get(String(row.key)) ?? {}) } : row,
+            );
+        } else if (isPlainObject(current) && isPlainObject(value)) {
+            out[key] = overlayTranslations(current, value);
+        } else {
+            out[key] = value;
+        }
+    }
+    return out;
+}
+
+/** Applies a `{ rowKey: { field: value } }` translation map to a row list. */
+function translateRows(
+    rows: readonly Json[],
+    byKey: Record<string, Record<string, string>>,
+): Json[] {
+    return rows.map((row) => ({ ...row, ...(byKey[String(row.key)] ?? {}) }));
+}
+
+/**
+ * The local content tree for one locale, with collections injected at their
+ * paths. This is the bundled fallback: it is what renders when the CMS is
+ * unreachable, so an Arabic visitor still gets an Arabic page.
+ */
+function localTree(locale: string): Json {
     const tree = structuredClone(content) as unknown as Json;
-    setPath(tree, "about.projects", structuredClone(projects));
-    setPath(tree, "people.departments", structuredClone(departments));
-    setPath(tree, "career.vacancies", structuredClone(vacancies));
-    setPath(tree, "news.events", structuredClone(events));
-    return tree;
+    const ar = locale === "ar";
+    setPath(tree, "about.projects", translateRows(projects, ar ? projectsAr : {}));
+    setPath(tree, "people.departments", translateRows(departments, ar ? departmentsAr : {}));
+    setPath(tree, "career.vacancies", translateRows(vacancies, ar ? vacanciesAr : {}));
+    setPath(tree, "news.events", translateRows(events, ar ? eventsAr : {}));
+    if (!ar) return tree;
+    // Arabic copy overlays English key by key, so an untranslated string still
+    // renders (in English) instead of leaving a hole in the page.
+    return overlayTranslations(tree, contentAr as unknown as Json);
 }
 
 function setPath(target: Json, path: string, value: unknown): void {
@@ -185,15 +242,15 @@ export function deepMerge<T extends Json>(base: T, override: Json | null | undef
  * as the Arabic alternates.
  */
 export async function getContent(locale: string = DEFAULT_LOCALE): Promise<Json> {
-    const base = localTree();
+    const base = localTree(locale);
     if (locale === DEFAULT_LOCALE) {
         return deepMerge(base, await fetchCmsOverrides());
     }
-    const [defaultOverrides, localeOverrides] = await Promise.all([
-        fetchCmsOverrides(),
-        fetchCmsOverrides(locale),
-    ]);
-    return deepMerge(deepMerge(base, defaultOverrides), localeOverrides);
+    // Only the locale-scoped fetch is merged here: the CMS already resolves a
+    // `?locale=` request to that language, falling back to the default per key.
+    // Merging the default-locale tree on top as well would overwrite bundled
+    // Arabic with CMS English wherever a translation is missing.
+    return deepMerge(base, await fetchCmsOverrides(locale));
 }
 
 /** Reads a dot-path out of the merged tree, e.g. `home.hero.title`. */

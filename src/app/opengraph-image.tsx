@@ -11,7 +11,7 @@ import { join } from "node:path";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-export const alt = "KSHC Cube — Construction & Real Estate";
+export const alt = "Cubes — Construction & Real Estate";
 
 export default async function OpengraphImage() {
   // Read off disk rather than fetch(): at build time there is no server to
@@ -43,7 +43,7 @@ export default async function OpengraphImage() {
             letterSpacing: -1,
           }}
         >
-          KSHC Cube
+          Cubes
         </div>
         <div style={{ marginTop: 12, fontSize: 32, color: "#e8871e" }}>
           Construction &amp; Real Estate

@@ -96,7 +96,7 @@ export function pageMetadata({
 
 /** Brand name used in OG `siteName` and titles. Matches the CMS brand name but
  *  is needed at module scope, where the async CMS read isn't available. */
-export const SITE_NAME = "KSHC Cube";
+export const SITE_NAME = "Cubes";
 
 /**
  * Pulls a page's title/description out of the merged CMS tree.

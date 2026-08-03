@@ -13,12 +13,19 @@
 import { writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { content } from "../src/content/site";
+import { contentAr } from "../src/content/site.ar";
 import {
     departments,
     events,
     projects,
     vacancies,
 } from "../src/content/collections";
+import {
+    departmentsAr,
+    eventsAr,
+    projectsAr,
+    vacanciesAr,
+} from "../src/content/collections.ar";
 import {
     COLLECTIONS,
     COLLECTION_PATHS,
@@ -49,6 +56,8 @@ type Block = {
     value?: string;
     fields?: { id: string; type: string; label: string }[];
     items?: Json[];
+    /** Manifest-only: { locale: value | items }; the CMS splits these out. */
+    i18n?: Record<string, unknown>;
 };
 type Section = { title: string; blocks: Block[] };
 
@@ -132,10 +141,51 @@ function buildPageSections(base: string, ns: Json): Section[] {
 
 const tree = content as unknown as Json;
 
+const treeAr = contentAr as unknown as Json;
+
+/** Reads a dot-path (`home.hero.title`) out of a content tree. */
+function getPath(obj: Json, path: string): unknown {
+    return path
+        .split(".")
+        .reduce<unknown>((acc, k) => (isPlainObject(acc) ? acc[k] : undefined), obj);
+}
+
+/**
+ * Attaches the Arabic value for each block as `i18n.ar`, so the CMS receives
+ * one self-contained document per page and splits it into per-locale
+ * translations. Blocks with no Arabic yet are simply left untranslated and
+ * fall back to English on the site.
+ */
+function attachArabic(sections: Section[]): Section[] {
+    for (const section of sections) {
+        for (const block of section.blocks) {
+            const value = getPath(treeAr, block.id);
+            if (value === undefined || value === null) continue;
+            if (block.type === "list") {
+                // Merge row-by-row on `key` so untranslated columns (and the
+                // row's image) keep their default-locale values.
+                if (!Array.isArray(value) || !Array.isArray(block.items)) continue;
+                const byKey = new Map(
+                    (value as Json[]).map((r) => [String(r.key), r]),
+                );
+                block.i18n = {
+                    ar: block.items.map((row) => ({
+                        ...row,
+                        ...(byKey.get(String(row.key)) ?? {}),
+                    })),
+                };
+            } else if (typeof value === "string" && value !== "") {
+                block.i18n = { ar: value };
+            }
+        }
+    }
+    return sections;
+}
+
 const pages = PAGE_BASES.map((base) => ({
     slug: base,
     title: titleCase(base),
-    sections: buildPageSections(base, (tree[base] ?? {}) as Json),
+    sections: attachArabic(buildPageSections(base, (tree[base] ?? {}) as Json)),
 }));
 
 const rowsFor: Record<string, Json[]> = {
@@ -143,6 +193,15 @@ const rowsFor: Record<string, Json[]> = {
     departments: departments as unknown as Json[],
     vacancies: vacancies as unknown as Json[],
     events: events as unknown as Json[],
+};
+
+// Arabic per row key, attached as `i18n` so the CMS stores it as that row's
+// translation rather than a second row.
+const rowsArFor: Record<string, Record<string, Record<string, string>>> = {
+    projects: projectsAr,
+    departments: departmentsAr,
+    vacancies: vacanciesAr,
+    events: eventsAr,
 };
 
 const collections = COLLECTIONS.map((def) => ({
@@ -164,7 +223,10 @@ const collections = COLLECTIONS.map((def) => ({
             localized: false,
         })),
     },
-    rows: rowsFor[def.slug] ?? [],
+    rows: (rowsFor[def.slug] ?? []).map((row) => {
+        const ar = (rowsArFor[def.slug] ?? {})[String(row.key)];
+        return ar ? { ...row, i18n: { ar } } : row;
+    }),
 }));
 
 // Public inboxes — ids mirror what the site's forms actually POST.

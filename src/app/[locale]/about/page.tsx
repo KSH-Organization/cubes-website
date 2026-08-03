@@ -91,7 +91,7 @@ export default async function AboutPage({ params }: PageParams) {
         </div>
       </section>
 
-      {/* Why Choose KSHC */}
+      {/* Why Choose Cubes */}
       <section className="bg-slate-50 py-20 lg:py-28">
         <div className="mx-auto max-w-[1200px] px-5 lg:px-0">
           <SectionHeading

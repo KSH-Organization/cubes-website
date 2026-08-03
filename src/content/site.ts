@@ -18,7 +18,7 @@
 export const content = {
     globals: {
         brand: {
-            name: "KSHC",
+            name: "Cubes",
             tagline: "Construction & Real Estate",
             logo: "/images/logo.png",
         },
@@ -39,7 +39,7 @@ export const content = {
             location: "Location",
             email: "Email Address",
             phone: "+24990000000",
-            copyright: "© 2026 KSHC Construction & Real Estate. All rights reserved.",
+            copyright: "© 2026 Cubes Construction & Real Estate. All rights reserved.",
             companyHeading: "Company",
             servicesHeading: "Services",
             company: [
@@ -62,9 +62,9 @@ export const content = {
 
     home: {
         meta: {
-            title: "KSHC Cube | Construction & Real Estate in Sudan",
+            title: "Cubes | Construction & Real Estate in Sudan",
             description:
-                "KSHC Cube delivers construction, project management and real estate development across Sudan — precision planning, sustainable execution, on time and on budget.",
+                "Cubes delivers construction, project management and real estate development across Sudan — precision planning, sustainable execution, on time and on budget.",
         },
         hero: {
             badge: "Our Expertise",
@@ -76,7 +76,7 @@ export const content = {
         whoWeAre: {
             title: "Who We Are",
             subtitle:
-                "KSHC Construction & Real Estate is a leading construction and real estate company in Sudan, dedicated to building sustainable communities and delivering high-quality projects. We are committed to innovation, excellence, and client satisfaction. Our approach is built on precision, quality, and trust in every project.",
+                "Cubes Construction & Real Estate is a leading construction and real estate company in Sudan, dedicated to building sustainable communities and delivering high-quality projects. We are committed to innovation, excellence, and client satisfaction. Our approach is built on precision, quality, and trust in every project.",
             image: "/images/home-who-we-are.jpg",
             heading: "A vision built on excellence and local expertise.",
             body: "With deep roots in the Sudanese market and a commitment to international project management standards, we provide a bridge between traditional values and modern engineering solutions. Every project we undertake is an opportunity to contribute to the nation's progress.",
@@ -118,7 +118,7 @@ export const content = {
                 {
                     key: "network",
                     title: "Expand our network of partners and clients",
-                    body: "by building sustainable strategic relationships that drive Cube's market growth.",
+                    body: "by building sustainable strategic relationships that drive Cubes' market growth.",
                     icon: "",
                 },
                 {
@@ -130,7 +130,7 @@ export const content = {
             ],
         },
         servicesOverview: {
-            title: "KSHC Construction & Real Estate Services",
+            title: "Cubes Construction & Real Estate Services",
             subtitle:
                 "We offer a comprehensive range of services designed to help you achieve your goals with high quality, on time, and within budget.",
             items: [
@@ -141,7 +141,7 @@ export const content = {
         pmServices: {
             title: "Project Management Services",
             subtitle:
-                "At KSHC, we understand that success depends on meticulous planning and flawless execution. We follow international standards to ensure precision.",
+                "At Cubes, we understand that success depends on meticulous planning and flawless execution. We follow international standards to ensure precision.",
             items: [
                 {
                     key: "end-to-end",
@@ -240,9 +240,9 @@ export const content = {
 
     about: {
         meta: {
-            title: "About Us | KSHC Cube Construction Sudan",
+            title: "About Us | Cubes Construction Sudan",
             description:
-                "15+ years building Sudan's infrastructure. Learn how KSHC Cube combines precision engineering, sustainable design and international project management standards.",
+                "15+ years building Sudan's infrastructure. Learn how Cubes combines precision engineering, sustainable design and international project management standards.",
         },
         hero: {
             badge: "Our Expertise",
@@ -267,7 +267,7 @@ export const content = {
             ],
         },
         why: {
-            eyebrow: "Why Choose KSHC",
+            eyebrow: "Why Choose Cubes",
             title: "A partner built for complexity.",
             subtitle:
                 "We're structured to move fast, adapt quickly, and deliver consistently - across large-scale construction and real estate development.",
@@ -300,9 +300,9 @@ export const content = {
 
     people: {
         meta: {
-            title: "Our Departments & Team | KSHC Cube",
+            title: "Our Departments & Team | Cubes",
             description:
-                "Meet the specialised departments behind every KSHC Cube project — PMO, quality, real estate and customer service teams delivering precision and long-term value.",
+                "Meet the specialised departments behind every Cubes project — PMO, quality, real estate and customer service teams delivering precision and long-term value.",
         },
         hero: {
             badge: "Our Expertise",
@@ -320,7 +320,7 @@ export const content = {
 
     services: {
         meta: {
-            title: "Project Management & Real Estate Services | KSHC Cube",
+            title: "Project Management & Real Estate Services | Cubes",
             description:
                 "End-to-end project management, real estate development, PMO support and digital transformation services delivered to international standards across Sudan.",
         },
@@ -472,20 +472,20 @@ export const content = {
             ],
         },
         cta: {
-            title: "Ready to Partner with Cube?",
+            title: "Ready to Partner with Cubes?",
             button: "Contact Us Today",
         },
     },
 
     news: {
         meta: {
-            title: "News & Events | KSHC Cube Sudan",
+            title: "News & Events | Cubes Sudan",
             description:
-                "Project milestones, corporate announcements and industry events from KSHC Cube — updates on Sudan's construction and real estate development landscape.",
+                "Project milestones, corporate announcements and industry events from Cubes — updates on Sudan's construction and real estate development landscape.",
         },
         hero: {
             badge: "News & Events",
-            title: "Stay Updated with KSHC-Cube",
+            title: "Stay Updated with Cubes",
             subtitle:
                 "We believe in transparency and continuous communication with our clients, partners, and community. Through this page, you can explore our latest news, project updates, corporate announcements, milestones, and participation in major industry events.",
             image: "/images/hero-news.jpg",
@@ -494,22 +494,22 @@ export const content = {
         eventsSection: { title: "Events" },
         cta: {
             title: "Building the Future Together",
-            body: "Stay connected with KSHC-Cube for the latest updates in engineering excellence and project management. Join us as we shape the skyline and set new standards in construction.",
+            body: "Stay connected with Cubes for the latest updates in engineering excellence and project management. Join us as we shape the skyline and set new standards in construction.",
             button: "Connect With Us",
         },
     },
 
     career: {
         meta: {
-            title: "Careers & Job Vacancies | KSHC Cube Sudan",
+            title: "Careers & Job Vacancies | Cubes Sudan",
             description:
-                "Build your career with KSHC Cube. Explore open engineering, project management and real estate roles in Sudan, with training and advancement opportunities.",
+                "Build your career with Cubes. Explore open engineering, project management and real estate roles in Sudan, with training and advancement opportunities.",
         },
         hero: {
             badge: "CAREER OPPORTUNITIES",
-            title: "Join KSHC–Cube",
+            title: "Join Cubes",
             subtitle:
-                "At KSHC–Cube, our people are the foundation of our success. We are committed to attracting, developing, and retaining talented professionals who are passionate about innovation, quality, and excellence.",
+                "At Cubes, our people are the foundation of our success. We are committed to attracting, developing, and retaining talented professionals who are passionate about innovation, quality, and excellence.",
             image: "/images/hero-career.jpg",
             button: "View Open Roles",
         },
@@ -574,7 +574,7 @@ export const content = {
         },
         howToApply: {
             title: "How to Apply",
-            lead: "Ready to start your journey with KSHC–Cube?",
+            lead: "Ready to start your journey with Cubes?",
             body: "Submit your CV and cover letter to:",
             email: "careers@kshc-cube.com",
             note: "or apply directly through the website application form.",
@@ -582,22 +582,79 @@ export const content = {
         },
         apply: {
             meta: {
-                title: "Submit Your Application | KSHC Cube Careers",
+                title: "Submit Your Application | Cubes Careers",
                 description:
-                    "Apply for a role at KSHC Cube. Complete the online application form with your CV, cover letter and qualifications to join our team in Sudan.",
+                    "Apply for a role at Cubes. Complete the online application form with your CV, cover letter and qualifications to join our team in Sudan.",
             },
             breadcrumbParent: "Careers",
             breadcrumbCurrent: "Apply",
             title: "Job Application Form",
-            body: "Complete the form below to apply for a position at KSHC–Cube. All fields marked with * are required.",
+            body: "Complete the form below to apply for a position at Cubes. All fields marked with * are required.",
+            form: {
+                sectionPersonal: "Personal Information",
+                sectionProfessional: "Professional Information",
+                sectionEducation: "Education",
+                sectionDocuments: "Documents Upload",
+                sectionAdditional: "Additional Information",
+                fullName: "Full Name",
+                fullNamePlaceholder: "e.g. Ahmed Mohammed",
+                email: "Email Address",
+                emailPlaceholder: "name@example.com",
+                phone: "Phone Number",
+                phonePlaceholder: "+249 XXX XXX XXX",
+                dateOfBirth: "Date of Birth",
+                datePlaceholder: "DD / MM / YYYY",
+                nationality: "Nationality",
+                nationalityPlaceholder: "e.g. Sudanese",
+                location: "Current Location / City",
+                locationPlaceholder: "e.g. Khartoum",
+                linkedin: "LinkedIn Profile URL",
+                linkedinPlaceholder: "e.g. linkedin.com/in/username",
+                position: "Position Applying For",
+                positionPlaceholder: "Select a position",
+                positionOther: "Other",
+                experience: "Years of Experience",
+                experiencePlaceholder: "e.g. 5",
+                employer: "Current Employer",
+                employerPlaceholder: "Current company name",
+                jobTitle: "Current Job Title",
+                jobTitlePlaceholder: "Your current role",
+                expectedSalary: "Expected Salary Range",
+                salaryPlaceholder: "e.g. SDG 500,000 - 700,000",
+                startDate: "Available Start Date",
+                startDatePlaceholder: "Select date",
+                degree: "Highest Degree",
+                degreePlaceholder: "e.g. Master's in Civil Engineering",
+                university: "University / Institution",
+                universityPlaceholder: "Name of university",
+                fieldOfStudy: "Field of Study",
+                fieldPlaceholder: "Major or specialization",
+                graduationYear: "Graduation Year",
+                yearPlaceholder: "YYYY",
+                uploadCv: "Upload CV / Resume",
+                uploadCover: "Upload Cover Letter",
+                uploadCertificates: "Upload Certificates (Academic / Professional)",
+                uploadHint: "Click to upload or drag and drop",
+                uploadTypes: "PDF, DOC, or DOCX (Max. 10MB)",
+                motivation: "Why do you want to join Cubes?",
+                motivationPlaceholder: "Briefly describe your motivation...",
+                notes: "Additional Notes or Comments",
+                notesPlaceholder: "Any other details you'd like to share...",
+                consent: "I confirm that the information provided is accurate and complete",
+                submit: "Submit Application",
+                submitting: "Submitting…",
+                draft: "Save as Draft",
+                success:
+                    "Application received — thank you! Our recruitment team will contact you after reviewing your profile.",
+            },
         },
     },
 
     contact: {
         meta: {
-            title: "Contact Us | KSHC Cube Construction & Real Estate",
+            title: "Contact Us | Cubes Construction & Real Estate",
             description:
-                "Get in touch with KSHC Cube for construction, project management or real estate enquiries and partnerships in Sudan. Our team responds promptly.",
+                "Get in touch with Cubes for construction, project management or real estate enquiries and partnerships in Sudan. Our team responds promptly.",
         },
         hero: {
             badge: "Contact Us",
@@ -630,7 +687,7 @@ export const content = {
                 label: "Announcements",
                 title: "Corporate Announcements",
                 intro:
-                    "Official announcements from KSHC-Cube covering organizational updates, new project launches, strategic partnerships, and important notices for our clients, partners, and community.",
+                    "Official announcements from Cubes covering organizational updates, new project launches, strategic partnerships, and important notices for our clients, partners, and community.",
                 bullets:
                     "New project launches and development plans\nStrategic partnerships and signed agreements\nOrganizational and leadership updates\nOfficial notices for clients and stakeholders",
                 icon: "",

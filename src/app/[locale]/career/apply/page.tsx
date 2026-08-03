@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import ApplicationForm from "@/components/ApplicationForm";
 import JsonLd from "@/components/JsonLd";
-import { getContent, text } from "@/lib/cms";
+import { getContent, pick, text } from "@/lib/cms";
 import { isLocale, localePath } from "@/lib/site-config";
 import { metaFromContent, pageMetadata } from "@/lib/seo";
 import { breadcrumbSchema } from "@/lib/structured-data";
@@ -66,7 +66,9 @@ export default async function ApplyPage({ params }: PageParams) {
 
       <section className="bg-slate-50 py-16 lg:py-20">
         <div className="mx-auto max-w-[1040px] px-5 lg:px-0">
-          <ApplicationForm />
+          <ApplicationForm
+            t={(pick(c, "career.apply.form") ?? {}) as Record<string, string>}
+          />
         </div>
       </section>
     </>

@@ -9,7 +9,7 @@
 export const projects = [
     {
         key: "kchs-warehouse",
-        title: "KCHS Warehouse",
+        title: "Cubes Warehouse",
         body: "Industrial Area, Sudan. A comprehensive logistics facility designed for maximum efficiency and sustainability.",
         image: "/images/about-kchs.jpg",
     },
@@ -80,11 +80,11 @@ export const events = [
     {
         key: "structural-workshop",
         date: "March 2022",
-        location: "KSHC Headquarters",
-        organizer: "KSHC Project Management Office - CUBE",
+        location: "Cubes Headquarters",
+        organizer: "Cubes Project Management Office",
         title: "Structural Design Workshop",
         overview:
-            "This technical workshop was organized to address a major structural design issue identified in one of KSHC-Cube's development projects. After the contractor completed the design review, several critical errors were detected, requiring immediate collaborative intervention before issuing the final Issued for Construction (IFC) drawings.",
+            "This technical workshop was organized to address a major structural design issue identified in one of Cubes' development projects. After the contractor completed the design review, several critical errors were detected, requiring immediate collaborative intervention before issuing the final Issued for Construction (IFC) drawings.",
         activities:
             "Brought together contractor, consultant, and third-party structural engineering expert for detailed discussions, reviewed problematic sections, and explored engineering alternatives.",
         outcome:
@@ -97,13 +97,13 @@ export const events = [
     {
         key: "pm-training",
         date: "November 2023",
-        location: "KSHC Headquarters",
-        organizer: "KSHC Project Management Office - CUBE",
+        location: "Cubes Headquarters",
+        organizer: "Cubes Project Management Office",
         title: "Project Management Training Program",
         overview:
-            "An intensive capacity-building program designed to strengthen project management skills across KSHC-Cube teams. The program covered international frameworks and modern planning tools used in large-scale construction delivery.",
+            "An intensive capacity-building program designed to strengthen project management skills across Cubes teams. The program covered international frameworks and modern planning tools used in large-scale construction delivery.",
         activities:
-            "Delivered hands-on training in Primavera P6 scheduling, earned value management, and risk workshops, with case studies drawn from ongoing KSHC-Cube projects.",
+            "Delivered hands-on training in Primavera P6 scheduling, earned value management, and risk workshops, with case studies drawn from ongoing Cubes projects.",
         outcome:
             "Raised team proficiency in scheduling and cost control, standardized reporting templates, and established a shared project governance language across departments.",
         image1: "/images/event-3.jpg",
@@ -115,10 +115,10 @@ export const events = [
         key: "coordination-forum",
         date: "June 2024",
         location: "Khartoum",
-        organizer: "KSHC Project Management Office - CUBE",
+        organizer: "Cubes Project Management Office",
         title: "Engineering Coordination Forum",
         overview:
-            "A cross-disciplinary forum bringing together consultants, contractors, and suppliers to align on engineering standards, quality expectations, and delivery timelines for KSHC-Cube's active developments.",
+            "A cross-disciplinary forum bringing together consultants, contractors, and suppliers to align on engineering standards, quality expectations, and delivery timelines for Cubes' active developments.",
         activities:
             "Facilitated coordination sessions between design and site teams, reviewed interface issues across structural and MEP packages, and agreed on escalation workflows.",
         outcome:
