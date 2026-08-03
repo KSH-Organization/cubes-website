@@ -40,6 +40,11 @@ export const content = {
             email: "Email Address",
             phone: "+24990000000",
             copyright: "© 2026 Cubes Construction & Real Estate. All rights reserved.",
+        newsletter: {
+            heading: "Stay Updated",
+            placeholder: "Enter your email",
+            submit: "Subscribe",
+        },
             companyHeading: "Company",
             servicesHeading: "Services",
             company: [
@@ -491,7 +496,17 @@ export const content = {
             image: "/images/hero-news.jpg",
         },
         latest: { title: "Latest News" },
-        eventsSection: { title: "Events" },
+        eventsSection: {
+            title: "Events",
+            dateLabel: "Event Date",
+            locationLabel: "Location",
+            organizerLabel: "Organized By",
+            overviewLabel: "Overview",
+            activitiesLabel: "Key Activities",
+            outcomeLabel: "Outcome",
+            prev: "Previous event",
+            next: "Next event",
+        },
         cta: {
             title: "Building the Future Together",
             body: "Stay connected with Cubes for the latest updates in engineering excellence and project management. Join us as we shape the skyline and set new standards in construction.",
@@ -662,6 +677,16 @@ export const content = {
             subtitle:
                 "We're here to help. Send us a message and our team will get back to you as soon as possible.",
             image: "/images/hero-contact.jpg",
+        },
+        form: {
+            name: "Your Name",
+            email: "Email Address",
+            phone: "Phone Number (optional)",
+            message: "Message",
+            submit: "Leave us a Message",
+            sending: "Sending…",
+            success:
+                "Thank you! Your message has been received — our team will get back to you shortly.",
         },
         info: {
             title: "Contact Information",

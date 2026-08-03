@@ -5,7 +5,7 @@ import Hero from "@/components/Hero";
 import SectionHeading from "@/components/SectionHeading";
 import NewsTabs from "@/components/NewsTabs";
 import EventsCarousel from "@/components/EventsCarousel";
-import { getContent, list, text } from "@/lib/cms";
+import { getContent, list, pick, text } from "@/lib/cms";
 import { isLocale, localePath } from "@/lib/site-config";
 import { metaFromContent, pageMetadata } from "@/lib/seo";
 
@@ -74,7 +74,10 @@ export default async function NewsPage({ params }: PageParams) {
       <section className="bg-slate-50 py-20 lg:py-24">
         <div className="mx-auto max-w-[1200px] px-5 lg:px-0">
           <SectionHeading title={text(c, "news.eventsSection.title")} underline />
-          <EventsCarousel events={events} />
+          <EventsCarousel
+            events={events}
+            t={(pick(c, "news.eventsSection") ?? {}) as Record<string, string>}
+          />
         </div>
       </section>
 

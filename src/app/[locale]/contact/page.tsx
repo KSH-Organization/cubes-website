@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Hero from "@/components/Hero";
 import SectionHeading from "@/components/SectionHeading";
 import ContactForm from "@/components/ContactForm";
-import { getContent, text } from "@/lib/cms";
+import { getContent, pick, text } from "@/lib/cms";
 import { isLocale } from "@/lib/site-config";
 import { metaFromContent, pageMetadata } from "@/lib/seo";
 
@@ -39,7 +39,7 @@ export default async function ContactPage({ params }: PageParams) {
             subtitle={text(c, "contact.info.subtitle")}
           />
           <div className="mt-14">
-            <ContactForm />
+            <ContactForm t={(pick(c, "contact.form") ?? {}) as Record<string, string>} />
           </div>
         </div>
       </section>

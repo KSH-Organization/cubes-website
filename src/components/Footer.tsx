@@ -20,6 +20,7 @@ export type FooterProps = {
     email: string;
     phone: string;
     companyHeading: string;
+    newsletter: { heading: string; placeholder: string; submit: string };
     servicesHeading: string;
     company: LinkRow[];
     services: LinkRow[];
@@ -137,18 +138,20 @@ export default function Footer({
           </div>
 
           <div>
-            <h3 className="text-base font-bold text-orange">Stay Updated</h3>
+            <h3 className="text-base font-bold text-orange">
+              {footer.newsletter?.heading}
+            </h3>
             <form className="mt-5" action="#">
               <input
                 type="email"
-                placeholder="Enter your email"
+                placeholder={footer.newsletter?.placeholder}
                 className="h-12 w-full rounded-lg bg-white px-4 text-[15px] text-navy placeholder:text-slate-400 focus:outline-2 focus:outline-orange"
               />
               <button
                 type="submit"
                 className="mt-4 h-12 w-full rounded-lg bg-orange-dark text-[15px] font-bold text-white transition-colors hover:bg-orange-mid"
               >
-                Subscribe
+                {footer.newsletter?.submit}
               </button>
             </form>
           </div>

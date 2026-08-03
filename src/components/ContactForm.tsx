@@ -7,7 +7,9 @@ import { submitEntry } from "@/lib/submit";
 const fieldClass =
   "w-full border-b border-gray-200 bg-transparent py-4 text-navy placeholder:text-gray-400 focus:border-orange focus:outline-none";
 
-export default function ContactForm() {
+export type ContactStrings = Record<string, string>;
+
+export default function ContactForm({ t }: { t: ContactStrings }) {
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -36,26 +38,26 @@ export default function ContactForm() {
         type="text"
         name="name"
         required
-        placeholder="Your Name"
+        placeholder={t.name}
         className={fieldClass}
       />
       <input
         type="email"
         name="email"
         required
-        placeholder="Email Address"
+        placeholder={t.email}
         className={`${fieldClass} mt-4`}
       />
       <input
         type="tel"
         name="phone"
-        placeholder="Phone Number (optional)"
+        placeholder={t.phone}
         className={`${fieldClass} mt-4`}
       />
       <textarea
         name="message"
         required
-        placeholder="Message"
+        placeholder={t.message}
         rows={5}
         className={`${fieldClass} mt-4 resize-none`}
       />
@@ -65,7 +67,7 @@ export default function ContactForm() {
         aria-busy={sending}
         className="mt-9 inline-flex items-center gap-2 rounded-lg bg-gradient-to-b from-orange to-orange-mid px-7 py-4 font-bold text-white shadow-[0_6px_16px_rgba(232,135,30,0.35)] transition-transform hover:scale-[1.03] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:scale-100"
       >
-        {sending ? "Sending…" : "Leave us a Message"}
+        {sending ? t.sending : t.submit}
         {sending && <Loader2 size={18} className="animate-spin" aria-hidden />}
       </button>
       {error && (
@@ -75,8 +77,7 @@ export default function ContactForm() {
       )}
       {sent && (
         <p className="mt-5 font-semibold text-green-700" role="status">
-          Thank you! Your message has been received — our team will get back to
-          you shortly.
+          {t.success}
         </p>
       )}
     </form>

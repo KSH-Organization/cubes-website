@@ -20,7 +20,15 @@ export type EventRow = {
   image4?: string;
 };
 
-export default function EventsCarousel({ events }: { events: EventRow[] }) {
+export type EventStrings = Record<string, string>;
+
+export default function EventsCarousel({
+  events,
+  t,
+}: {
+  events: EventRow[];
+  t: EventStrings;
+}) {
   const [index, setIndex] = useState(0);
   const event = events[index];
   const prev = () => setIndex((index + events.length - 1) % events.length);
@@ -35,7 +43,7 @@ export default function EventsCarousel({ events }: { events: EventRow[] }) {
       <button
         type="button"
         onClick={prev}
-        aria-label="Previous event"
+        aria-label={t.prev}
         className="absolute top-1/2 -start-4 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-navy shadow-lg transition-colors hover:text-orange lg:-start-16"
       >
         <ChevronLeft size={22} className="rtl-flip" />
@@ -43,7 +51,7 @@ export default function EventsCarousel({ events }: { events: EventRow[] }) {
       <button
         type="button"
         onClick={next}
-        aria-label="Next event"
+        aria-label={t.next}
         className="absolute top-1/2 -end-4 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-navy shadow-lg transition-colors hover:text-orange lg:-end-16"
       >
         <ChevronRight size={22} className="rtl-flip" />
@@ -53,17 +61,17 @@ export default function EventsCarousel({ events }: { events: EventRow[] }) {
         <div className="grid gap-10 lg:grid-cols-[300px_1fr] lg:gap-14">
           <div>
             <p className="text-xs font-bold tracking-wider text-orange-mid uppercase">
-              Event Date
+              {t.dateLabel}
             </p>
             <p className="font-manrope mt-1 text-[22px] font-semibold text-navy">
               {event.date}
             </p>
             <p className="mt-6 text-xs font-bold tracking-wider text-orange-mid uppercase">
-              Location
+              {t.locationLabel}
             </p>
             <p className="font-manrope mt-1 text-navy">{event.location}</p>
             <p className="mt-6 text-xs font-bold tracking-wider text-orange-mid uppercase">
-              Organized By
+              {t.organizerLabel}
             </p>
             <p className="font-manrope mt-1 text-navy">{event.organizer}</p>
             <div className="mt-7 grid grid-cols-2 gap-3">
@@ -85,7 +93,7 @@ export default function EventsCarousel({ events }: { events: EventRow[] }) {
               {event.title}
             </h3>
             <p className="mt-6 text-xs font-bold tracking-wider text-gray-500 uppercase">
-              Overview
+              {t.overviewLabel}
             </p>
             <p className="font-manrope mt-3 leading-relaxed text-gray-700">
               {event.overview}
@@ -93,7 +101,7 @@ export default function EventsCarousel({ events }: { events: EventRow[] }) {
             <div className="mt-8 grid gap-8 md:grid-cols-2">
               <div>
                 <p className="text-xs font-bold tracking-wider text-gray-500 uppercase">
-                  Key Activities
+                  {t.activitiesLabel}
                 </p>
                 <p className="font-manrope mt-3 leading-relaxed text-gray-600">
                   {event.activities}
@@ -101,7 +109,7 @@ export default function EventsCarousel({ events }: { events: EventRow[] }) {
               </div>
               <div className="rounded-lg bg-slate-50 p-6">
                 <p className="text-xs font-bold tracking-wider text-orange-mid uppercase">
-                  Outcome
+                  {t.outcomeLabel}
                 </p>
                 <p className="font-manrope mt-3 leading-relaxed text-gray-700">
                   {event.outcome}
